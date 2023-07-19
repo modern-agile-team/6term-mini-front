@@ -6,6 +6,7 @@ import StartPage from './pages/StartPage';
 import FindIdPage from './pages/FindIdPage';
 import FindPwPage from './pages/FindPwPage';
 import SignUp from './pages/SignUp';
+import MainPage from './pages/MainPage';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path='/findid' element={<FindIdPage />} />
             <Route path='/findpw' element={<FindPwPage />} />
             <Route path='/signup' element={<SignUp />} />
+            <Route path='/mainpage' element={<MainPage />} />
           </Routes>
       </div>
     </BrowserRouter>

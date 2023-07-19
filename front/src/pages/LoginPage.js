@@ -18,7 +18,7 @@ function LoginPage() {
                     </Container>
                     <Container>
                         <ButtonUI>
-                            <StyledLink to="/">로그인</StyledLink>
+                            <StyledLink to="/mainpage">로그인</StyledLink>
                         </ButtonUI>
                     </Container>
                     <Container>
