@@ -1,20 +1,20 @@
 import React from "react";
-import InputText from "../components/InputText";
-import Container from "../components/Container";
-import Box from "../components/Box";
-import TitleBg from "../components/TitleBg";
-import ButtonUI from "../components/ButtonUI";
-import { Link } from "react-router-dom";
-import StyledLink from "../components/StyledLink";
+import InputText from "../components/public/InputText";
+import Container from "../components/public/Container";
+import Box from "../components/public/Box";
+import TitleBg from "../components/public/TitleBg";
+import ButtonUI from "../components/public/ButtonUI";
+import StyledLink from "../components/public/StyledLink";
+import MarginTen from "../components/public/MarginTen";
 
 function FindIdPage() {
     return (
         <Container margin={100}>
             <Box width={536} height={300}>
-            <TitleBg>아아디 찾기</TitleBg>
+            <TitleBg size={40}>아아디 찾기</TitleBg>
             <form>
                 <Container>
-                    <InputText type="text" placeholder="이메일" width={500} height={40}/>
+                    <InputText type="text" placeholder="이메일" />
                 </Container>
                 <Container>
                     <ButtonUI>
@@ -22,8 +22,10 @@ function FindIdPage() {
                     </ButtonUI>
                 </Container>
                 <Container>
-                        <StyledLink to="/findpw">비밀번호 찾기</StyledLink>
-                        <StyledLink to="/signup">회원가입</StyledLink>
+                    <MarginTen>
+                        <StyledLink to="/findpw">비밀번호 찾기</StyledLink> | 
+                        <StyledLink to="/signup"> 회원가입</StyledLink>
+                    </MarginTen>
                 </Container>
             </form>
         </Box>

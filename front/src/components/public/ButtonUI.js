@@ -9,6 +9,7 @@ const ButtonUI = styled.button`
     width: 300px;
     height: 40px;
     cursor: pointer;
+    margin: 10px;
 `;
 
 export default ButtonUI;

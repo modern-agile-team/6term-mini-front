@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components"
 
+/*
+    @returns width크기에 따라 box사이즈 변경(가로)
+*/
+
 const Box = styled.div`
     width: ${({ width }) => width }px;
     height: auto;

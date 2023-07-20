@@ -1,6 +1,6 @@
 import React from "react";
-import Container from "../components/Container";
-import StyledLink from "../components/StyledLink";
+import Container from "../components/public/Container";
+import StyledLink from "../components/public/StyledLink";
 
 function StartPage() {
     return (

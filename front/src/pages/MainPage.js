@@ -1,13 +1,8 @@
 import axios from "axios";
 import React, { useEffect } from "react";
-import getMovieApi from "../api/getMovie";
-import Container from "../components/Container";
+import Container from "../components/public/Container";
 
 function MainPage() {
-
-    useEffect(()=>{
-        getMovieApi()
-    }, [])
 
     return (
         <Container margin={50}>
