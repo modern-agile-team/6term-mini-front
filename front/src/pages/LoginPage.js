@@ -9,21 +9,33 @@ import MarginTen from "../components/public/MarginTen";
 import axios from "axios";
 
 function LoginPage() {
-    const [user, setUser] = useState([]);
-    const path = "/mainpage"
+    const [userId, setUserId] = useState("");
+    const [userPw, setUserPw] = useState("");
+    const [path, setPath] = useState("/login");
 
-    // const fetchData = async () => {
-    //     const res = await axios.post("http://localhost:3001/user");
-    //     setUser(res.data);
-    // }
+    const getUserId = (e) => {
+        setUserId(e.target.value);
+    }
 
-    // useEffect(()=>{
-    //     fetchData();
-    // }, []);
-    
+    const getUserPw = (e) => {
+        setUserPw(e.target.value);
+    }
 
-    function onSubmit(e) {
+    async function onSubmit(e) {
         e.preventDefault();
+        try {
+            const res = await axios.post('http://3.39.22.182:3000/auth/login', {
+                login_id: userId,
+                pw: userPw 
+              })
+              console.log(res.data);
+              return res.data
+        }
+        catch(err) {
+            if(err.response.status === 401) {
+                console.log("401error");
+            }
+        }
     }
 
     return (
@@ -32,12 +44,12 @@ function LoginPage() {
                 <TitleBg size={40}>로그인</TitleBg>
                 <form onSubmit={onSubmit}>
                     <Container>
-                        <InputText name="id" type="text" placeholder="아이디" />
-                        <InputText name="password" type="password" placeholder="비밀번호" />
+                        <InputText name="id" type="text" placeholder="아이디" onChange={getUserId}/>
+                        <InputText name="password" type="password" placeholder="비밀번호" onChange={getUserPw}/>
                     </Container>
                     <Container>
                         <ButtonUI>
-                            <StyledLink to={path}>로그인</StyledLink>
+                            <StyledLink to={path} >로그인</StyledLink>
                         </ButtonUI>
                     </Container>
                     <Container>
