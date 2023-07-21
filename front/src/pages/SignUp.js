@@ -6,8 +6,9 @@ import TitleBg from "../components/public/TitleBg";
 import ButtonUI from "../components/public/ButtonUI";
 import StyledLink from "../components/public/StyledLink";
 import MarginTen from "../components/public/MarginTen";
-
+import axios from "axios";
 function SignUp2() {
+    //추후 리펙토링 필요
     //초기값 할당
     const [ userId, setUserId ] = useState("");
     const [ userEmail, setUserEmail ] = useState("");
@@ -21,6 +22,9 @@ function SignUp2() {
     const [ isEmail, setIsEmail ] = useState(false);
     const [ isPassword, setIsPassword ] = useState(false);
     const [ isCheckPw, setIsCheckPw ] = useState(false);
+    const [ isCheckBox, setIsCheckBox ] = useState(false);
+    //api
+    const [ api, setApi ] = useState(null);
 
     const getUserId = (event) => {
         setUserId(event.target.value); //아이디
@@ -37,6 +41,10 @@ function SignUp2() {
     const getCheckedPw = (event) => {
         setCheckedPw(event.target.value); //비밀번호 확인
     };
+
+    const getCheckedBox = (event) => {
+        setIsCheckBox(event.target.checked); //체크박스
+    }
     
     //user정보 유효성 검사
     function UserImfor() {
@@ -49,28 +57,54 @@ function SignUp2() {
             setIsPassword(false);
             setIsCheckPw(false);
         }
-
-        isId && isPassword && isCheckPw && isPassword ? setPath('/login') : setPath('/signup');
+        isCheckBox ? setIsCheckBox(true) : setIsCheckBox(false);
+        isId && isPassword && isCheckPw && isPassword && isCheckBox ? setPath('/login') : setPath('/signup');
     }
 
+    //회원가입 버튼 클릭 시
     function signUpBtn() {
-        if(isId && isPassword && isCheckPw && isPassword) {
+        if(isId && isPassword && isCheckPw && isPassword && isCheckBox) {
             alert('회원가입 완료');
         } else {
             if (!isId) alert('아이디를 확인해 주세요.');
             if (!isEmail) alert('이메일을 확인해 주세요.');
             if (!isPassword) alert('비밀번호를 확인해 주세요.');
+            if (!isCheckBox) alert('약관 동의를 해주세요.')
         }
     }
 
+    //event 발생시 리로드
     useEffect(()=>{
         UserImfor();
         isPassword && isCheckPw ? setPwCheckMsg("일치합니다.") : setPwCheckMsg("일치하지 않습니다.");
     })
 
-    function onSubmitHandler(e) {
+    //mount, unmount 시 리로드
+    useEffect(()=>{
+        fetchData();
+        console.log(api);
+    }, [])
+
+    const fetchData = async () => {
+        try {
+            const response =  await axios.get("http://localhost:3001/id");
+            setApi(response.data);
+        } catch (err) {
+            console.err("회원 정보 불러오기 중 에러발생")
+        }
+    }
+    async function onSubmitHandler(e) {
         e.preventDefault();
-        
+        try {
+            const response = await axios.post("http://localhost:3001/id", {
+                login_id: userId,
+                email: userEmail,
+                password: password,
+            });
+            console.log(response.data);
+        } catch (err) {
+            console.err('회원 정보 보내는 중 에러발생');
+        }
     }
 
     return (
@@ -90,9 +124,7 @@ function SignUp2() {
                 <Container>
                     <label>회원 정보 입력 및 약관 동의</label>
                     <ul>
-                        <li><input type="checkbox" /><label>[ 필수 ] 이용약관 동의</label></li>
-                        <li><input type="checkbox" /><label>[ 필수 ] 이용약관 동의</label></li>
-                        <li><input type="checkbox" /><label>[ 필수 ] 이용약관 동의</label></li>
+                        <li><input type="checkbox" onChange={getCheckedBox} /><label>[ 필수 ] 이용약관 동의</label></li>
                     </ul>
                 </Container>
                 <Container>

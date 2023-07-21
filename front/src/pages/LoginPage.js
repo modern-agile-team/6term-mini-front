@@ -45,8 +45,6 @@ function LoginPage() {
         fetchData();
     }
 
-    
-
     return (
         <Container margin={100}>
             <Box width={536} height={300}>
