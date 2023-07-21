@@ -21,22 +21,31 @@ function LoginPage() {
         setUserPw(e.target.value);
     }
 
-    async function onSubmit(e) {
+    function onSubmit(e) {
         e.preventDefault();
-        try {
-            const res = await axios.post('http://3.39.22.182:3000/auth/login', {
-                login_id: userId,
-                pw: userPw 
-              })
-              console.log(res.data);
-              return res.data
-        }
-        catch(err) {
-            if(err.response.status === 401) {
-                console.log("401error");
-            }
-        }
     }
+
+    async function fetchData() {
+        await axios.get("http://localhost:3001/id").then((res=>{
+            console.log(res.data);
+        }))
+        .then((res)=>{
+            
+        })
+        .catch((err)=>{
+            console.log("err발생");
+        })
+    }
+
+    async function loginHandler() {
+        await axios.post("http://localhost:3001/id", {
+            login_id: userId,
+            password: userPw
+        })
+        fetchData();
+    }
+
+    
 
     return (
         <Container margin={100}>
@@ -49,7 +58,7 @@ function LoginPage() {
                     </Container>
                     <Container>
                         <ButtonUI>
-                            <StyledLink to={path} >로그인</StyledLink>
+                            <StyledLink to={path} onClick={loginHandler}>로그인</StyledLink>
                         </ButtonUI>
                     </Container>
                     <Container>
