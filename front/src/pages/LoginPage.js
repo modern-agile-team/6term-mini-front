@@ -6,12 +6,18 @@ import TitleBg from "../components/public/TitleBg";
 import ButtonUI from "../components/public/ButtonUI";
 import StyledLink from "../components/public/StyledLink";
 import MarginTen from "../components/public/MarginTen";
+import { useNavigate } from "react-router-dom"
 import axios from "axios";
+import loginApi from "../api/loginApi";
 
 function LoginPage() {
     const [userId, setUserId] = useState("");
     const [userPw, setUserPw] = useState("");
-    const [path, setPath] = useState("/login");
+    const navigate = useNavigate();
+    const userInfo = {
+        loginId: userId,
+        pw: userPw, 
+    }
 
     const getUserId = (e) => {
         setUserId(e.target.value);
@@ -25,24 +31,16 @@ function LoginPage() {
         e.preventDefault();
     }
 
-    async function fetchData() {
-        await axios.get("http://localhost:3001/id").then((res=>{
-            console.log(res.data);
-        }))
-        .then((res)=>{
-            
-        })
-        .catch((err)=>{
-            console.log("err발생");
-        })
-    }
-
-    async function loginHandler() {
-        await axios.post("http://localhost:3001/id", {
-            login_id: userId,
-            password: userPw
-        })
-        fetchData();
+    const loginHandler = async () => {
+        const { status, data } = await loginApi(userInfo)
+        if (status === 200) {
+            window.localStorage.setItem("accessToken", data.access_token);
+            window.localStorage.setItem("refreshToken", data.refresh_token);
+            console.log(data.msg);
+            navigate(`/mainpage`);
+        } else {
+            console.log(`로그인 중 에러발생`);
+        }
     }
 
     return (
@@ -56,7 +54,7 @@ function LoginPage() {
                     </Container>
                     <Container>
                         <ButtonUI>
-                            <StyledLink to={path} onClick={loginHandler}>로그인</StyledLink>
+                            <StyledLink onClick={loginHandler}>로그인</StyledLink>
                         </ButtonUI>
                     </Container>
                     <Container>

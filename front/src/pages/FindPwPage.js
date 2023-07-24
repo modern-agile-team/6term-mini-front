@@ -24,6 +24,7 @@ function FindPwPage() {
                 </Container>
                 <Container>
                     <MarginTen>
+                        <StyledLink to="/login">로그인</StyledLink> | 
                         <StyledLink to="/findid">아이디 찾기</StyledLink> | 
                         <StyledLink to="/signup"> 회원가입</StyledLink>
                     </MarginTen>
