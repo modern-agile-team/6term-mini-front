@@ -7,8 +7,8 @@ import ButtonUI from "../components/public/ButtonUI";
 import StyledLink from "../components/public/StyledLink";
 import MarginTen from "../components/public/MarginTen";
 import { useNavigate } from "react-router-dom"
-import axios from "axios";
 import loginApi from "../api/loginApi";
+import AccessBox from "../components/public/AccessBtn";
 
 function LoginPage() {
     const [userId, setUserId] = useState("");
@@ -34,12 +34,10 @@ function LoginPage() {
     const loginHandler = async () => {
         const { status, data } = await loginApi(userInfo)
         if (status === 200) {
-            window.localStorage.setItem("accessToken", data.access_token);
-            window.localStorage.setItem("refreshToken", data.refresh_token);
+            window.localStorage.setItem("accessToken", data.accessToken);
+            window.localStorage.setItem("refreshToken", data.refreshToken);
             console.log(data.msg);
             navigate(`/mainpage`);
-        } else {
-            console.log(`로그인 중 에러발생`);
         }
     }
 
@@ -53,9 +51,9 @@ function LoginPage() {
                         <InputText name="password" type="password" placeholder="비밀번호" onChange={getUserPw}/>
                     </Container>
                     <Container>
-                        <ButtonUI>
-                            <StyledLink onClick={loginHandler}>로그인</StyledLink>
-                        </ButtonUI>
+                            <AccessBox onClick={loginHandler}>
+                                <ButtonUI>로그인</ButtonUI>
+                            </AccessBox>
                     </Container>
                     <Container>
                         <MarginTen>

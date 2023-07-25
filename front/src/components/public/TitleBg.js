@@ -12,6 +12,7 @@ const TitleBg = styled.div`
     width: 100%;
     font-weight: bold;
     color: #000;
+    display: flex;
 `;
 
 export default TitleBg;

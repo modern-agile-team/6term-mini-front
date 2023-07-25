@@ -18,9 +18,9 @@ function FindPwPage() {
                     <InputText type="text" placeholder="이메일" />
                 </Container>
                 <Container>
-                    <ButtonUI>
-                        <StyledLink to="/login">로그인 페이지로 이동</StyledLink>
-                    </ButtonUI>
+                        <StyledLink to="/login">
+                            <ButtonUI>확인</ButtonUI>
+                        </StyledLink>
                 </Container>
                 <Container>
                     <MarginTen>
