@@ -5,9 +5,8 @@ const useDebouncedEffect =  (value, delay) => {
 
     useEffect(() => {
         const handler = setTimeout(() => setState(value), delay);
-
         return () => clearTimeout(handler);
-    }, [value, delay]);
+    }, [value]);
     return state;
 }
 

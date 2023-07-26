@@ -6,11 +6,11 @@ import TitleBg from "../components/public/TitleBg";
 import ButtonUI from "../components/public/ButtonUI";
 import StyledLink from "../components/public/StyledLink";
 import MarginTen from "../components/public/MarginTen";
-import axios from "axios";
 import signUpApi from "../api/signUpApi";
 import { useNavigate } from "react-router-dom";
 import AccessBox from "../components/public/AccessBtn";
-import getDebounce from 'lodash'
+import useDebouncedEffect from "../hooks/useDebouncedEffect";
+import checkUserInfo from "../api/checkUserInfo";
 function SignUp() {
     //navigate
     const navigate = useNavigate();
@@ -23,7 +23,6 @@ function SignUp() {
     });
     //메시지
     const [ checkMsg, setCheckMsg ] = useState({
-        pwCheckMsg: "",
         idCheckMsg: "",
         emailCheckMsg: "",
     });
@@ -32,70 +31,68 @@ function SignUp() {
         id: false,
         email: false,
         pw: false,
-        checkPw: false,
-        CheckBox: false
+        checkPw: false
     });
+    const [ isCheckPw, setIsCheckPw ] = useState({})
     //체크박스
     const [ isCheckBox, setIsCheckBox ] = useState(false);
 
+    //setState로 값 불러오기
     const handleChange = e => {
         setUserInfo((userInfo) => {
             return { ...userInfo, [e.target.name] : e.target.value};
         });
-    };
-
-    const checkId = (e) => {
         setIsCheck((isCheck)=>{
-            return { ...isCheck, id : e.target.value !== "" ? true : false};
+            return { 
+                ...isCheck,
+                [e.target.name] : !!e.target.value,
+            };
         });
     };
 
-    // const getUserInfo = (e) => {
-    //     setUserInfo({
-    //         ...userInfo,
-    //         [e.target.name] : e.target.value,
-    //     });
-    //     setIsCheck({
-    //         ...isCheck,
-    //         isId: id !== "" ? true : false, 
-    //         isEmail: email !== "" ? true : false,
-    //         isPw: pw === checkPw && pw !== "" ? true : false,
-    //         isCheckPw: pw === checkPw && checkPw !== "" ? true : false,
-    //     })
-    // }
+    //Debounce로 delay시간 만큼 뒤 state호출
+    const userId = useDebouncedEffect(userInfo, 500);
 
     const getCheckedBox = (event) => {
         setIsCheckBox(event.target.checked); //체크박스
     }
 
+    //check api 받아와서 id email 여부 판단
+    const getCheckUserInfo = async() => {
+        const userIdData = await checkUserInfo("id" , { "loginId":userId.id});
+        const userEmailData = await checkUserInfo("email", {"email" :userId.email });
+        setCheckMsg(()=>{
+            return {
+                idCheckMsg: userIdData ? "아이디 입력" : "이미 가입된 아이디 입니다.",
+                emailCheckMsg: userEmailData ? "이메일 입력" : "이미 가입된 이메일 입니다.",
+            }
+        });
+    };
+
+    useEffect(()=> {
+        getCheckUserInfo()
+    }, [userId]);
+
     //회원가입 버튼 클릭 시
     async function signUpBtn() {
-        // if(isId && isPw && isCheckPw && isCheckBox) {
+        if(isCheck.id && isCheck.email && isCheck.pw && isCheckBox) {
             
-        //     const response = await signUpApi({
-        //         loginId: id,
-        //         email: email,
-        //         pw: pw,
-        //     });
-        //     if (response) {
-        //         alert('회원가입 완료');
-        //         navigate(`/login`);
-        //     } else {}
-        // } else {
-        //     if (!isId) alert('아이디를 확인해 주세요.');
-        //     if (!isEmail) alert('이메일을 확인해 주세요.');
-        //     if (!isPw) alert('비밀번호를 확인해 주세요.');
-        //     if (!isCheckBox) alert('약관 동의를 해주세요.');
-        // }
+            const response = await signUpApi({
+                loginId: userId.id,
+                email: userId.email,
+                pw: userId.pw,
+            });
+            if (response) {
+                alert('회원가입 완료');
+                navigate(`/login`);
+            } else {}
+        } else {
+            if (!isCheck.id) alert('아이디를 확인해 주세요.');
+            if (!isCheck.email) alert('이메일을 확인해 주세요.');
+            if (!isCheck.pw) alert('비밀번호를 확인해 주세요.');
+            if (!isCheckBox) alert('약관 동의를 해주세요.');
+        }
     }
-
-    //event 발생시 리로드
-    // useEffect(()=>{
-    //     isCheckBox ? setIsCheckBox(true) : setIsCheckBox(false);
-    //     isPw && isCheckPw ? setPwCheckMsg("") : setPwCheckMsg("비밀번호가 일치하지 않습니다.");
-    //     isId ? setCheckIdMsg("") : setCheckIdMsg("존재하는 아이디 입니다.");
-    //     isEmail ? setCheckEmailMsg("") : setCheckEmailMsg("존재하는 이메일 입니다.");
-    // });
     
     function onSubmitHandler(e) {
         e.preventDefault();
@@ -107,32 +104,34 @@ function SignUp() {
             <TitleBg size={40}>회원가입</TitleBg>
             <form onSubmit={onSubmitHandler}>
                 <Container>
+                    <div style={{
+                        width:530,
+                        height: 20,
+                        marginLeft: 25,
+                        color: `#ff0000`
+                    }}>{checkMsg.emailCheckMsg}</div>
                     <InputText name="email" type="text" placeholder="이메일" onChange={handleChange}/>
+                    <div style={{
+                        width:530,
+                        height: 20,
+                        marginLeft: 25,
+                        color: `#ff0000`
+                    }}>{checkMsg.idCheckMsg}</div>
                     <InputText name="id" type="text" placeholder="아이디" onChange={handleChange}/>
+                    <div style={{
+                        width:530,
+                        height: 20,
+                        marginLeft: 25,
+                        color: `#ff0000`
+                    }}>{userInfo.pw === userInfo.checkPw ? "비밀번호 입력": "비밀번호가 일치하지 않습니다."}</div>
                     <InputText name="pw" type="password" placeholder="비밀번호" onChange={handleChange}/>
                     <InputText name="checkPw"type="password" placeholder="비밀번호 확인" onChange={handleChange}/>
-                    <label style={{
-                        color:"red",
-                    }}>
-                        <ul>
-                            <li>
-                                {checkMsg.idCheckMsg}
-                            </li>
-                            <li>
-                                {checkMsg.emailCheckMsg}
-                            </li>
-                            <li>
-                                {checkMsg.pwCheckMsg}
-                            </li>
-                        </ul>
-                    </label>
                 </Container>
-                <Container>
-                    <label>회원 정보 입력 및 약관 동의</label>
-                    <ul>
+                    <ul style={{
+                        marginLeft: 25,
+                    }}>
                         <li><input type="checkbox" name='checkBox' onChange={getCheckedBox} /><label>[ 필수 ] 이용약관 동의</label></li>
                     </ul>
-                </Container>
                 <Container>
                         <AccessBox onClick={signUpBtn}>
                             <ButtonUI>회원가입</ButtonUI>
