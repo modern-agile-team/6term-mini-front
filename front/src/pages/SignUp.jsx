@@ -33,7 +33,6 @@ function SignUp() {
         pw: false,
         checkPw: false
     });
-    const [ isCheckPw, setIsCheckPw ] = useState({})
     //체크박스
     const [ isCheckBox, setIsCheckBox ] = useState(false);
 
@@ -63,8 +62,8 @@ function SignUp() {
         const userEmailData = await checkUserInfo("email", {"email" :userId.email });
         setCheckMsg(()=>{
             return {
-                idCheckMsg: userIdData ? "아이디 입력" : "이미 가입된 아이디 입니다.",
-                emailCheckMsg: userEmailData ? "이메일 입력" : "이미 가입된 이메일 입니다.",
+                idCheckMsg: userIdData ? "" : "이미 가입된 아이디 입니다.",
+                emailCheckMsg: userEmailData ? "" : "이미 가입된 이메일 입니다.",
             }
         });
     };
@@ -99,33 +98,38 @@ function SignUp() {
     }
 
     return (
-        <Container margin={100}>
+        <Container margin={60}>
             <Box width={536} height={300}>
             <TitleBg size={40}>회원가입</TitleBg>
             <form onSubmit={onSubmitHandler}>
                 <Container>
-                    <div style={{
-                        width:530,
-                        height: 20,
-                        marginLeft: 25,
-                        color: `#ff0000`
-                    }}>{checkMsg.emailCheckMsg}</div>
                     <InputText name="email" type="text" placeholder="이메일" onChange={handleChange}/>
                     <div style={{
                         width:530,
                         height: 20,
                         marginLeft: 25,
                         color: `#ff0000`
-                    }}>{checkMsg.idCheckMsg}</div>
+                    }}>{checkMsg.emailCheckMsg}</div>
                     <InputText name="id" type="text" placeholder="아이디" onChange={handleChange}/>
                     <div style={{
                         width:530,
                         height: 20,
                         marginLeft: 25,
                         color: `#ff0000`
-                    }}>{userInfo.pw === userInfo.checkPw ? "비밀번호 입력": "비밀번호가 일치하지 않습니다."}</div>
+                    }}>{checkMsg.idCheckMsg}</div>
                     <InputText name="pw" type="password" placeholder="비밀번호" onChange={handleChange}/>
+                    <div style={{
+                        width:530,
+                        height: 20,
+                        marginLeft: 25,
+                    }}></div>
                     <InputText name="checkPw"type="password" placeholder="비밀번호 확인" onChange={handleChange}/>
+                    <div style={{
+                        width:530,
+                        height: 20,
+                        marginLeft: 25,
+                        color: `#ff0000`
+                    }}>{userInfo.pw === userInfo.checkPw ? "": "비밀번호가 일치하지 않습니다."}</div>
                 </Container>
                     <ul style={{
                         marginLeft: 25,
