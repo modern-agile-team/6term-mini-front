@@ -6,8 +6,31 @@ function MainPage() {
 
     return (
         <Container margin={50}>
-            메인 페이지
-            <PosterBox />
+            <div>
+                <div style={{
+                    display:"flex",
+                    justifyContent:"center",
+                    alignItems:"center",
+                    margin: 100,
+                    padding: 100,
+                }}>
+                    동영상자리
+                </div>
+                <div style={{
+                    display:"flex",
+                    flexDirection:"row",
+                    flexWrap: "wrap"
+                }}>
+                    <PosterBox />
+                    <PosterBox />
+                    <PosterBox />
+                    <PosterBox />
+                    <PosterBox />
+                    <PosterBox />
+                    <PosterBox />
+
+                </div>
+            </div>
         </Container>
     )
 }
