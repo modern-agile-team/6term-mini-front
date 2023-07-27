@@ -2,20 +2,18 @@ import React, { useEffect, useState } from "react";
 import getMovieApi from "../../api/getMovieApi";
 import AccessBox from "../public/AccessBtn";
 
-function PosterBox() {
-    const [ movie, setMovie ] = useState({
-       movieTitle: "",
-       moviePoster: "", //url
-       movieRunTime: "" 
-    });
+function PosterBox(props) {
+    const [ likeCount , setLikeCount ] = useState(0);
+    const movieTitle = props.movieTitle;
+    const moviePoster = props.moviePoster;
+    const movieRuntime = props.movieRunTime;
 
-    const textfunc = async () => {
-        const a = await getMovieApi();
-        console.log(a);
+    const likeBtn = () => {
+        setLikeCount(likeCount+1);
     }
 
     useEffect(()=>{
-        textfunc();
+
     }, [])
 
     return (
@@ -25,16 +23,37 @@ function PosterBox() {
             <div style={{
                 width: 220,
                 height: 300,
-                backgroundColor: "#aff"
+                backgroundImage: `${moviePoster}`,
+                backgroundColor: "#aaee2f",
+                display:"flex",
+                flexDirection: "column",
             }}>
-                포스터가 올 자리입니다.
+                <div>영화제목 : {movieTitle}</div>
+                <div style={{
+                    marginTop:"auto",
+                }}>런타임 : {movieRuntime}</div>
             </div>
             <div style={{
                 display:"flex",
                 flexDirection: "row",
             }}>
-                <AccessBox>Likes❤</AccessBox>
-                <AccessBox>예매하기</AccessBox>
+                <div style={{
+                    border: 1,
+                    cursor: "pointer",
+                    fontSize: 25,
+                    color: `#f00`,
+                }} onClick={likeBtn}>❤{likeCount}</div>
+                <div style={{
+                    marginLeft: "auto",
+                    cursor: "pointer",
+                    backgroundColor: "rgba(107, 129, 145, 0.82)",
+                    width: 100,
+                    height: 40,
+                    textAlign: "center",
+                    fontSize: 20,
+                    borderBottomRightRadius: 10,
+                    borderBottomLeftRadius : 10,
+                }}>예매하기</div>
             </div>
         </div>
     );

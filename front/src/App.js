@@ -8,6 +8,7 @@ import FindPwPage from './pages/FindPwPage';
 import SignUp from './pages/SignUp';
 import MainPage from './pages/MainPage';
 import MyPage from './pages/MyPage';
+import TicketingPage from './pages/TicketingPage';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path='/signup' element={<SignUp />} />
             <Route path='/mainpage' element={<MainPage />} />
             <Route path='/mypage' element={<MyPage />} />
+            <Route path='/ticketpage' element={<TicketingPage />} />
           </Routes>
       </div>
     </BrowserRouter>

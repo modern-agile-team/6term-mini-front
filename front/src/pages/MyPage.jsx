@@ -8,7 +8,7 @@ import axios from "axios";
 function MyPage() {
 
     const getCheckToken = async () => {
-        const { data } = await checkToken();
+        const data = await checkToken();
         console.log(data);
         window.localStorage.setItem("accessToken", data.accessToken);
     }
@@ -48,9 +48,14 @@ function MyPage() {
                 </div>
             </div>
             <div style={{
+                fontWeight: "bold",
+                fontSize: 30,
+                margin: 10,
+            }}>나의 영화 티켓</div>
+            <div style={{
                 display: "flex",
                 flexDirection: "row",
-                margin: 50,
+                margin: 30,
             }}>
                 <MovieTicket />
                 <MovieTicket />
