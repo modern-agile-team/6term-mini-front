@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 import getMovieApi from "../../api/getMovieApi";
 import AccessBox from "../public/AccessBtn";
+import { useNavigate } from "react-router-dom";
 
 function PosterBox(props) {
     const [ likeCount , setLikeCount ] = useState(0);
     const movieTitle = props.movieTitle;
     const moviePoster = props.moviePoster;
     const movieRuntime = props.movieRunTime;
+    const navigate = useNavigate();
+
+    const ticketingBtn = () => {
+        navigate("/ticketpage");
+    }
 
     const likeBtn = () => {
         setLikeCount(likeCount+1);
@@ -21,7 +27,7 @@ function PosterBox(props) {
             margin: 20,
         }}>
             <div style={{
-                width: 220,
+                width: 215,
                 height: 300,
                 backgroundImage: `${moviePoster}`,
                 backgroundColor: "#aaee2f",
@@ -53,7 +59,7 @@ function PosterBox(props) {
                     fontSize: 20,
                     borderBottomRightRadius: 10,
                     borderBottomLeftRadius : 10,
-                }}>예매하기</div>
+                }} onClick={ticketingBtn}>예매하기</div>
             </div>
         </div>
     );

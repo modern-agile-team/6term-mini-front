@@ -44,7 +44,7 @@ function SignUp() {
         setIsCheck((isCheck)=>{
             return { 
                 ...isCheck,
-                [e.target.name] : !!e.target.value,
+                [e.target.name] : !!e.target.value, //target.value가 비어있지 않는다면,
             };
         });
     };
