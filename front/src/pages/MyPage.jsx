@@ -29,7 +29,7 @@ function MyPage() {
     const logOutBtn = async () => {
         await logOutApi("logout");
         localStorage.clear();
-        window.location.replace("http://localhost:3000/"); //리펙토링 필요(front서버 url로 기입)
+        // window.location.replace("http://localhost:3000/"); //리펙토링 필요(front서버 url로 기입)
         navigate("/login");
     }
 

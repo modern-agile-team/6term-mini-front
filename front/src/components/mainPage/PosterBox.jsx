@@ -4,7 +4,7 @@ import AccessBox from "../public/AccessBtn";
 import { useNavigate } from "react-router-dom";
 
 function PosterBox(props) {
-    const [ likeCount , setLikeCount ] = useState(0);
+    // const [ likeCount , setLikeCount ] = useState(0);
     const movieTitle = props.movieTitle;
     const moviePoster = props.moviePoster;
     const movieRuntime = props.movieRunTime;
@@ -15,7 +15,7 @@ function PosterBox(props) {
     }
 
     const likeBtn = () => {
-        setLikeCount(likeCount+1);
+        // setLikeCount(likeCount+1);
     }
 
     useEffect(()=>{
@@ -48,7 +48,7 @@ function PosterBox(props) {
                     cursor: "pointer",
                     fontSize: 25,
                     color: `#f00`,
-                }} onClick={likeBtn}>❤{likeCount}</div>
+                }} onClick={likeBtn}>❤{props.likeCount}</div>
                 <div style={{
                     marginLeft: "auto",
                     cursor: "pointer",
