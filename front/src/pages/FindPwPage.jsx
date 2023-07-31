@@ -6,15 +6,14 @@ import TitleBg from "../components/public/TitleBg";
 import ButtonUI from "../components/public/ButtonUI";
 import StyledLink from "../components/public/StyledLink";
 import MarginTen from "../components/public/MarginTen";
-import findIdApi from "../api/findIdApi";
-import useDebouncedEffect from "../hooks/useDebouncedEffect";
+import findIdApi from "../api/findIdApi";   
+import AccessBox from "../components/public/AccessBtn";
 
 function FindPwPage() {
     const [ findPw, setFindPw ] = useState({
-        id: "",
+        loginId: "",
         email: "",
     });
-    useDebouncedEffect(findPw, 500);
 
     const onChange = (e) => {
         setFindPw((findPw)=>{
@@ -25,23 +24,27 @@ function FindPwPage() {
         });
     }
 
-    useEffect(()=>{
-        const a = findIdApi("email", findPw);
-    }, [findPw]);
+    const currectBtn = () => {
+        findIdApi("pw", findPw);
+    };
+
+    const onSubminHandler = (e) => {
+        e.preventDefault();
+    }
 
     return (
         <Container margin={100}>
             <Box width={536} height={300}>
             <TitleBg size={40}>비밀번호 찾기</TitleBg>
-            <form>
+            <form onSubmit={onSubminHandler}>
                 <Container>
-                    <InputText name="id" type="text" placeholder="아이디" onChange={onChange}/>
+                    <InputText name="loginId" type="text" placeholder="아이디" onChange={onChange}/>
                     <InputText name="email" type="text" placeholder="이메일" onChange={onChange}/>
                 </Container>
                 <Container>
-                        <StyledLink to="/login">
+                        <AccessBox onClick={currectBtn}>
                             <ButtonUI>확인</ButtonUI>
-                        </StyledLink>
+                        </AccessBox>
                 </Container>
                 <Container>
                     <MarginTen>

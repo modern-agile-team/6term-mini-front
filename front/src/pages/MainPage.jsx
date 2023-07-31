@@ -3,8 +3,10 @@ import Container from "../components/public/Container";
 import PosterBox from "../components/mainPage/PosterBox";
 import getMovieApi from "../api/getMovieApi";
 import styled from "styled-components";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function MainPage() {
+    const navigate = useNavigate();
     const [ movie, setMovie ] = useState({
         movieTitle: {},
         moviePoster: {},
@@ -14,6 +16,10 @@ function MainPage() {
     const textfunc = async () => {
         const data = await getMovieApi();
         console.log(data);
+    }
+
+    const goToMovieList = () => {
+        navigate("/movielist");
     }
 
     useEffect(()=>{
@@ -42,7 +48,8 @@ function MainPage() {
                 </div>
                 <div style={{
                     textAlign:"right",
-                }}>
+                    cursor:"pointer"
+                }} onClick={goToMovieList}>
                     + 더 많은 영화 보러 가기
                 </div>
                 <div style={{

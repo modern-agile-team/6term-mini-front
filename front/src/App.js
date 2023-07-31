@@ -9,6 +9,7 @@ import SignUp from './pages/SignUp';
 import MainPage from './pages/MainPage';
 import MyPage from './pages/MyPage';
 import TicketingPage from './pages/TicketingPage';
+import MovieListPage from './pages/MovieListPage';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path='/mainpage' element={<MainPage />} />
             <Route path='/mypage' element={<MyPage />} />
             <Route path='/ticketpage' element={<TicketingPage />} />
+            <Route path='/movielist' element={<MovieListPage />} />
           </Routes>
       </div>
     </BrowserRouter>

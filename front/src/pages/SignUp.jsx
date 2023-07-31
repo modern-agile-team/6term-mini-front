@@ -74,22 +74,28 @@ function SignUp() {
 
     //회원가입 버튼 클릭 시
     async function signUpBtn() {
-        if(isCheck.id && isCheck.email && isCheck.pw && isCheckBox) {
-            
-            const response = await signUpApi({
-                loginId: userId.id,
-                email: userId.email,
-                pw: userId.pw,
-            });
-            if (response) {
-                alert('회원가입 완료');
-                navigate(`/login`);
-            } else {}
-        } else {
-            if (!isCheck.id) alert('아이디를 확인해 주세요.');
-            if (!isCheck.email) alert('이메일을 확인해 주세요.');
-            if (!isCheck.pw) alert('비밀번호를 확인해 주세요.');
-            if (!isCheckBox) alert('약관 동의를 해주세요.');
+        try {
+            if(isCheck.id && isCheck.email && isCheck.pw && isCheckBox) {
+                
+                const response = await signUpApi({
+                    loginId: userId.id,
+                    email: userId.email,
+                    pw: userId.pw,
+                });
+                if (response && response.data.success) {
+                    alert('회원가입 완료');
+                    navigate(`/login`);
+                } else {
+                    alert(response.data.msg)
+                }
+            } else {
+                if (!isCheck.id) alert('아이디를 확인해 주세요.');
+                if (!isCheck.email) alert('이메일을 확인해 주세요.');
+                if (!isCheck.pw) alert('비밀번호를 확인해 주세요.');
+                if (!isCheckBox) alert('약관 동의를 해주세요.');
+            }
+        } catch(error) {
+            console.log(error);
         }
     }
     

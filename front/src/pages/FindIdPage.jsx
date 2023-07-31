@@ -8,31 +8,35 @@ import StyledLink from "../components/public/StyledLink";
 import MarginTen from "../components/public/MarginTen";
 import useDebouncedEffect from "../hooks/useDebouncedEffect";
 import findIdApi from "../api/findIdApi";
+import AccessBox from "../components/public/AccessBtn";
 
 function FindIdPage() {
     const [ findId, setfindId ] = useState("");
-    useDebouncedEffect(findId, 500);
 
     const onChange = (e) => {
         setfindId(e.target.value);
     }
 
-    useEffect(()=>{
-        const a = findIdApi("id", findId);
-    }, [findId]);
+    const currectBtn = () => {
+        findIdApi("id", { email: findId });
+    }
+
+    const onSubminHandler = (e) => {
+        e.preventDefault();
+    }
 
     return (
         <Container margin={100}>
             <Box width={536} height={300}>
             <TitleBg size={40}>아아디 찾기</TitleBg>
-            <form>
+            <form onSubmit={onSubminHandler}>
                 <Container>
                     <InputText name="email" onChange={onChange} type="text" placeholder="이메일" />
                 </Container>
                 <Container>
-                        <StyledLink to="/login">
+                        <AccessBox onClick={currectBtn}>
                             <ButtonUI>확인</ButtonUI>
-                        </StyledLink>
+                        </AccessBox>
                 </Container>
                 <Container>
                     <MarginTen>

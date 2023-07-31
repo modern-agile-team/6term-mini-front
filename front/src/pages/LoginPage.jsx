@@ -36,7 +36,6 @@ function LoginPage() {
         if (status === 200) {
             window.localStorage.setItem("accessToken", data.accessToken);
             window.localStorage.setItem("refreshToken", data.refreshToken);
-            console.log(data.msg);
             navigate(`/mainpage`);
         }
     }

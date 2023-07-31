@@ -1,21 +1,42 @@
-import React, { useEffect } from "react";
-import Container from "../components/public/Container";
+import React, { useEffect, useState } from "react";
 import MovieTicket from "../components/myPage/MovieTicket";
 import AccessBox from "../components/public/AccessBtn";
-import checkToken from "../api/checkToken";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import getProfileApi from "../api/getProfileApi";
+import logOutApi from "../api/logOutApi";
 
 function MyPage() {
+    const navigate = useNavigate();
+    const [ userInfo, setUserInfo ] = useState({
+        id: "",
+        email: "",
+    });
 
-    const getCheckToken = async () => {
-        const data = await checkToken();
-        console.log(data);
-        window.localStorage.setItem("accessToken", data.accessToken);
+    const getUserProfile = async () => {
+        const res = await getProfileApi(`profile`);
+        setUserInfo(()=>{
+            return {
+                id: res.data.loginId,
+                email: res.data.email
+            };
+        });
     }
 
+    const goToMovieBtn = () => {
+        navigate('/movielist');
+    }
+
+    const logOutBtn = async () => {
+        await logOutApi("logout");
+        localStorage.clear();
+        window.location.replace("http://localhost:3000/"); //리펙토링 필요(front서버 url로 기입)
+        navigate("/login");
+    }
+
+
     useEffect(()=>{
-        getCheckToken();
-    }, [])
+        getUserProfile();
+    },[]);
 
     return (
         <div>
@@ -36,15 +57,15 @@ function MyPage() {
                     <ul style={{
                         
                     }}>
-                        <li>아이디 : </li>
-                        <li>이메일 : </li>
+                        <li>아이디 : {userInfo.id}</li>
+                        <li>이메일 : {userInfo.email}</li>
                     </ul>
                 </div>
                 <div style={{
                     marginLeft: "auto",
                 }}>
-                    <AccessBox>영화 목록 보러가기</AccessBox>
-                    <AccessBox>로그아웃</AccessBox>
+                    <AccessBox onClick={goToMovieBtn}>영화 목록 보러가기</AccessBox>
+                    <AccessBox onClick={logOutBtn}>로그아웃</AccessBox>
                 </div>
             </div>
             <div style={{
