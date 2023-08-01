@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-function PosterBox(props) {
+function ListPosterBox(props) {
     const [ likeCount , setLikeCount ] = useState(0);
     const movieTitle = props.title;
     const moviePoster = props.poster;
     const movieRuntime = props.runtime;
     const navigate = useNavigate();
     
-    const Poster = styled.div`
+    const Poster = styled.div`  //movePoster를 받아야하기 때문에 함수 안쪽에 선언
         width: 210px;
         height: 300px;
         background-image: url(${moviePoster});
@@ -36,22 +36,17 @@ function PosterBox(props) {
         <div style={{
             margin: 20,
         }}>
-            <Poster >
-                <div style={{
-                    fontWeight:"bold",
-                    margin: 5,
-                }}>{movieTitle}</div>
-                <div style={{
-                    marginTop:"auto",
-                }}>{movieRuntime}</div>
-            </Poster>
-            <div style={{
-                display:"flex",
-                flexDirection: "row",
+            <Poster />
+            <FlexBox style={{
+                backgroundColor:"#999"
             }}>
+                <div>{movieTitle}</div>
+                <div>{movieRuntime}</div>
+            </FlexBox>
+            <FlexBox>
                 <LikeBtn onClick={likeBtn}>❤{props.likeCount}</LikeBtn>
                 <Button onClick={ticketingBtn}>예매하기</Button>
-            </div>
+            </FlexBox>
         </div>
     );
 }
@@ -82,6 +77,10 @@ function PosterBox(props) {
         }
     `;
 
+    const FlexBox = styled.div`
+        display: flex;
+    `;
 
 
-export default PosterBox;
+
+export default ListPosterBox;

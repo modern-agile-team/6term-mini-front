@@ -2,8 +2,8 @@ import axios from  "axios";
 
 const BASE_URL = "http://3.39.22.182:3000"
 
-export const getMovieApi = async () => {
-    const SERVER_URL = `${BASE_URL}/movie/get-movie`;
+export const getMovieApi = async (url) => {
+    const SERVER_URL = `${BASE_URL}${url}`;
 
     try {
         const response = await axios.get(SERVER_URL);
@@ -12,7 +12,3 @@ export const getMovieApi = async () => {
         return err;
     }
 };
-
-export const getMovieLikeApi = async () => {
-    
-}

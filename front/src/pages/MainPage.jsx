@@ -5,85 +5,86 @@ import { getMovieApi, getMovieLikeApi } from "../api/getMovieApi";
 import styled from "styled-components";
 import { Navigate, useNavigate } from "react-router-dom";
 import ReactPlayer from "react-player";
+import SlideBar from "../components/mainPage/SlideBar";
+import LicenseBanner from "../components/public/LincenseBanner";
 
 function MainPage() {
     const navigate = useNavigate();
-    const [ movie, setMovie ] = useState({
-        movieTitle: {},
-        moviePoster: {},
-        movieRuntime: {}
-    });
+    const [ movie, setMovie ] = useState(null);
     const [ heart, setHeart ] = useState(0);
     const [ isWindow, setIsWindow ] = useState(false);
+    const showNum = 5;
 
+    //영화 정보 받아오기
     const getMovieTitle = async () => {
-        const data = await getMovieApi("get-movie");
+        const res = await getMovieApi("/movie/get-movie");
+        setMovie(res.data);
     }
 
+    //영화 좋아요 수 받아오기
     const getMovieLikes = async () => {
-        const data = await getMovieApi("get-movie-like");
+        const data = await getMovieApi("/movielike/get-movie-like");
     }
 
+    //목록 페이지로 이동
     const goToMovieList = () => {
         navigate("/movielist");
     }
 
     useEffect(()=>{
         setIsWindow(true);
+        getMovieTitle();
+        getMovieLikes();
     }, []);
 
     return (
-        <Container margin={50}>
+        <Container>
             <div>
+                {isWindow && 
+                    <SlideBar />
+                }
                 <div style={{
-                    display:"flex",
-                    justifyContent:"center",
-                    alignItem:"center",
-                    flexWrap:"nowrap",
+                    textAlign: "end",
+                    marginRight: 50,
                 }}>
-                    <NextBtn> &lt; </NextBtn>
-                    {isWindow && 
-                        <ReactPlayer 
-                            url="https://www.youtube.com/embed/BOqFRHCrN-k"
-                            muted
-                            loop
-                            playing={true}
-                        />
-                    }
-                    <NextBtn> &gt; </NextBtn>
-                </div>
-                <div style={{
-                    textAlign:"right",
-                    cursor:"pointer"
-                }} onClick={goToMovieList}>
-                    + 더 많은 영화 보러 가기
+                    <Button onClick={goToMovieList}>
+                        + 더 많은 영화 보러 가기
+                    </Button>
                 </div>
                 <div style={{
                     display:"flex",
                     flexDirection:"row",
-                    flexWrap: "wrap"
+                    flexWrap: "nowrap",
                 }}>
-                    <PosterBox likeCount={heart}/>
-                    <PosterBox />
-                    <PosterBox />
-                    <PosterBox />
-                    <PosterBox />
-                    <PosterBox />
-                    <PosterBox />
-
+                    {movie !== null && movie.map((data, idx)=>{  //조건부 랜더링사용(null값일땐 랜더링x)
+                    if(idx < showNum) {
+                        return (
+                            <PosterBox 
+                                title={data.movie_title} 
+                                poster={data.movie_poster}
+                                runtime={data.movie_runtime}
+                            />
+                            );
+                    }
+                    })}
                 </div>
             </div>
+            <LicenseBanner />
         </Container>
     )
 }
 
-const NextBtn = styled.div`
-    font-size: 150px;
-    margin: 20px;
-    padding-top: 45px;
+const Button = styled.button`
+    text-align: center;
+    border: none;
+    background-color: #6C8891;
+    padding: 5px;
+    border-radius: 10px;
     cursor: pointer;
-    background-color: #999999;
-    opacity: calc(0.5);
+    &:hover {
+        background-color: #303B41;
+        color: #fff;
+    };
 `;
 
 export default MainPage;

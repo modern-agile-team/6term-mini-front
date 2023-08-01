@@ -8,7 +8,7 @@ import styled from "styled-components"
 const TitleBg = styled.div`
     font-size: ${({ size }) => size }px;
 
-    background-color: rgb(107, 129, 145);
+    background-color: #6C8891;
     width: 100%;
     font-weight: bold;
     color: #000;

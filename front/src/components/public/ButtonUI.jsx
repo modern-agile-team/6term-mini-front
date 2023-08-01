@@ -5,7 +5,7 @@ const ButtonUI = styled.button`
     border-radius: 5px;
     border: none;
     color: #fff;
-    background-color: rgba(107, 129, 145, 0.82);
+    background-color: #6C8891;
     width: 300px;
     height: 40px;
     cursor: pointer;
