@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import patchLikeApi from "../../api/patchLikeApi";
 
 function PosterBox(props) {
     const movieTitle = props.title;
@@ -23,7 +24,8 @@ function PosterBox(props) {
         navigate("/ticketpage");
     }
 
-    const likeBtn = () => {
+    const likeBtn = async () => {
+        await patchLikeApi(`${props.id}`, props.id);
     }
 
     useEffect(()=>{
@@ -47,7 +49,8 @@ function PosterBox(props) {
                 display:"flex",
                 flexDirection: "row",
             }}>
-                <LikeBtn onClick={likeBtn}>❤{props.likeCount}</LikeBtn>
+                <LikeBtn onClick={likeBtn}>❤{props.like}</LikeBtn>
+
                 <Button onClick={ticketingBtn}>예매하기</Button>
             </div>
         </div>

@@ -12,7 +12,7 @@ function MovieListPage() {
     //영화 정보 받아오기
     const getMovieTitle = async () => {
         const res = await getMovieApi("/movies/lists");
-        setMovie(res.data);
+        setMovie(res.data.movieInfo);
     }
 
     const toMain = () => {
@@ -21,7 +21,7 @@ function MovieListPage() {
 
     useEffect(()=>{
         getMovieTitle();
-    }, [])
+    }, [movie])
 
     return(
         <div>
@@ -37,7 +37,9 @@ function MovieListPage() {
             }}>
                 {movie !== null && movie.map((data, idx)=>{  //조건부 랜더링사용(null값일땐 랜더링x)
                     return (
-                        <ListPosterBox 
+                        <ListPosterBox
+                            id={data.id}
+                            like={data.like}
                             poster={data.movie_poster}
                             title={data.movie_title}
                             runtime={data.movie_runtime}

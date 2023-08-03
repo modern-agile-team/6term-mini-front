@@ -11,20 +11,14 @@ import LicenseBanner from "../components/public/LincenseBanner";
 function MainPage() {
     const navigate = useNavigate();
     const [ movie, setMovie ] = useState(null);
-    const [ heart, setHeart ] = useState(null);
+    const [ heart, setHeart ] = useState([]);
     const [ isWindow, setIsWindow ] = useState(false);
     const showNum = 5;
 
     //영화 정보 받아오기
     const getMovieTitle = async () => {
         const res = await getMovieApi("/movies/lists");
-        setMovie(res.data);
-    }
-
-    //영화 좋아요 수 받아오기
-    const getMovieLikes = async () => {
-        const res = await getMovieApi("/movies/like");
-        // console.log(res.data);
+        setMovie(res.data.movieInfo);
     }
 
     //목록 페이지로 이동
@@ -34,9 +28,11 @@ function MainPage() {
 
     useEffect(()=>{
         setIsWindow(true);
-        getMovieTitle();    
-        getMovieLikes();
     }, []);
+    
+    useEffect(()=>{
+        getMovieTitle();
+    }, [movie])
 
     return (
         <Container>
@@ -61,11 +57,13 @@ function MainPage() {
                     if(idx < showNum) {
                         return (
                             <PosterBox
+                                id={data.id}
+                                like={data.like}
                                 title={data.movie_title} 
                                 poster={data.movie_poster}
                                 runtime={data.movie_runtime}
                             />
-                            );
+                        );
                     }
                     })}
                 </div>

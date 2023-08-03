@@ -18,7 +18,7 @@ const LicenseBanner = () => {
                 heigh: 50,
             }} />
             <div>
-                Copyright of the Modern Agile Team
+              Copyright © Modern Agile
             </div>
         </div>
     )
