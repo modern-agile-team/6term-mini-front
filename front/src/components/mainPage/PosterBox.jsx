@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import patchLikeApi from "../../api/patchLikeApi";
@@ -27,10 +27,6 @@ function PosterBox(props) {
     const likeBtn = async () => {
         await patchLikeApi(`${props.id}`, props.id);
     }
-
-    useEffect(()=>{
-
-    }, [])
 
     return (
         <div style={{

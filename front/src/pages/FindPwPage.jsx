@@ -1,4 +1,4 @@
-import React ,{ useState, useEffect }  from "react";
+import React ,{ useState }  from "react";
 import InputText from "../components/public/InputText";
 import Container from "../components/public/Container";
 import Box from "../components/public/Box";

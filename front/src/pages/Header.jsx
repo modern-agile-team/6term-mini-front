@@ -40,6 +40,7 @@ function Header() {
                                 width:50,
                                 height:50,
                             }}
+                            alt="회원정보 페이지 로고"
                             />
                         </AccessBox>
                     </HeaderBox>
@@ -54,11 +55,7 @@ const BigFont = styled.span`
     font-weight: bold;
     color: #000;
 `;
-    
-const Font = styled.h1`
-    color: #000;
-`;
-    
+
 const HeaderBox = styled.div`
     margin: auto 0 0 auto;
 `;

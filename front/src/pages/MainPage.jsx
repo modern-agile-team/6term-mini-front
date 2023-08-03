@@ -1,18 +1,17 @@
 import React, { useEffect , useState } from "react";
 import Container from "../components/public/Container";
 import PosterBox from "../components/mainPage/PosterBox";
-import { getMovieApi, getMovieLikeApi } from "../api/getMovieApi";
+import { getMovieApi } from "../api/getMovieApi";
 import styled from "styled-components";
-import { Navigate, useNavigate } from "react-router-dom";
-import ReactPlayer from "react-player";
+import { useNavigate } from "react-router-dom";
 import SlideBar from "../components/mainPage/SlideBar";
 import LicenseBanner from "../components/public/LincenseBanner";
 
 function MainPage() {
     const navigate = useNavigate();
     const [ movie, setMovie ] = useState(null);
-    const [ heart, setHeart ] = useState([]);
     const [ isWindow, setIsWindow ] = useState(false);
+    const [ like, setLike ] = useState(null);
     const showNum = 5;
 
     //영화 정보 받아오기
@@ -32,7 +31,7 @@ function MainPage() {
     
     useEffect(()=>{
         getMovieTitle();
-    }, [movie])
+    }, [])
 
     return (
         <Container>

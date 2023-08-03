@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import InputText from "../components/public/InputText";
 import Container from "../components/public/Container";
 import Box from "../components/public/Box";
@@ -6,7 +6,6 @@ import TitleBg from "../components/public/TitleBg";
 import ButtonUI from "../components/public/ButtonUI";
 import StyledLink from "../components/public/StyledLink";
 import MarginTen from "../components/public/MarginTen";
-import useDebouncedEffect from "../hooks/useDebouncedEffect";
 import findIdApi from "../api/findIdApi";
 import AccessBox from "../components/public/AccessBtn";
 

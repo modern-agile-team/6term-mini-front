@@ -16,7 +16,8 @@ const LicenseBanner = () => {
             style={{
                 width: 80,
                 heigh: 50,
-            }} />
+            }} 
+            alt="Modren Agile"/>
             <div>
               Copyright © Modern Agile
             </div>

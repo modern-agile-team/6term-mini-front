@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components"
 
 /* 위치 title
