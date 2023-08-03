@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import ReactPlayer from 'react-player';
 
 export default function Slide({ url }) {

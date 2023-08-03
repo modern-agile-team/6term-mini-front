@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Slide from './Slide';
-import ButtonUI from '../public/ButtonUI';
+import { ButtonUI } from '../public/StyledComponent';
 import { useNavigate } from 'react-router-dom';
 
 const TOTAL_SLIDES = 2; // 전체 슬라이드 개수(총3개. 배열로 계산)

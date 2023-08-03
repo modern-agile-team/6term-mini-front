@@ -1,11 +1,11 @@
 import React, { useEffect , useState } from "react";
-import Container from "../components/public/Container";
 import PosterBox from "../components/mainPage/PosterBox";
 import { getMovieApi } from "../api/getMovieApi";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import SlideBar from "../components/mainPage/SlideBar";
 import LicenseBanner from "../components/public/LincenseBanner";
+import { Container } from "../components/public/StyledComponent";
 
 function MainPage() {
     const navigate = useNavigate();
@@ -31,7 +31,7 @@ function MainPage() {
     
     useEffect(()=>{
         getMovieTitle();
-    }, [])
+    }, [movie])
 
     return (
         <Container>

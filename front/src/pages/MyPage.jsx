@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import MovieTicket from "../components/myPage/MovieTicket";
-import AccessBox from "../components/public/AccessBtn";
 import { useNavigate } from "react-router-dom";
 import getProfileApi from "../api/getProfileApi";
 import logOutApi from "../api/logOutApi";
+import { AccessBox } from "../components/public/StyledComponent";
 
 function MyPage() {
     const navigate = useNavigate();

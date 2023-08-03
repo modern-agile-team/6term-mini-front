@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import InputText from "../components/public/InputText";
-import Container from "../components/public/Container";
-import Box from "../components/public/Box";
-import TitleBg from "../components/public/TitleBg";
-import ButtonUI from "../components/public/ButtonUI";
-import StyledLink from "../components/public/StyledLink";
-import MarginTen from "../components/public/MarginTen";
 import findIdApi from "../api/findIdApi";
-import AccessBox from "../components/public/AccessBtn";
+import {
+    AccessBox,
+    InputText,
+    Container,
+    Box,
+    TitleBg,
+    ButtonUI,
+    StyledLink,
+    MarginTen
+} from "../components/public/StyledComponent";
 
 function FindIdPage() {
     const [ findId, setfindId ] = useState("");

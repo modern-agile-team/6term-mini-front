@@ -1,9 +1,11 @@
 import React from "react";
 import {useNavigate} from "react-router-dom";
 import styled from "styled-components";
-import Container from "../components/public/Container";
-import TitleBg from "../components/public/TitleBg";
-import AccessBox from "../components/public/AccessBtn";
+import {
+    AccessBox,
+    Container,
+    TitleBg,
+} from "../components/public/StyledComponent";
 
 function Header() {
     const navigate = useNavigate();

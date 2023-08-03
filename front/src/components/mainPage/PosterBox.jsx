@@ -8,17 +8,6 @@ function PosterBox(props) {
     const moviePoster = props.poster;
     const movieRuntime = props.runtime;
     const navigate = useNavigate();
-    
-    const Poster = styled.div`
-        width: 210px;
-        height: 300px;
-        background-image: url(${moviePoster});
-        background-repeat:no-repeat;
-        background-size: cover;
-        background-color: #999;
-        display: flex;
-        flex-direction: column;
-    `;
 
     const ticketingBtn = () => {
         navigate("/ticketpage");
@@ -32,7 +21,7 @@ function PosterBox(props) {
         <div style={{
             margin: 20,
         }}>
-            <Poster >
+            <Poster moviePoster={moviePoster}>
                 <div style={{
                     fontWeight:"bold",
                     margin: 5,
@@ -52,32 +41,44 @@ function PosterBox(props) {
         </div>
     );
 }
-    
-    const LikeBtn = styled.div`
-        cursor: pointer;
-        font-size: 25px;
-        color: #f00;
-        -ms-user-select: none;
-        -moz-user-select: none;
-        -webkit-user-select: none;
-        user-select: none;
-    `;
-    
-    const Button = styled.div`
-        margin-left: auto;
-        cursor: pointer;
-        background-color: #6C8891;
-        width: 70%;
-        height: 35px;
-        font-size: 20px;
-        text-align: center;
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-        &:hover{
-            background-color: #303B41;
-            color: #fff;
-        }
-    `;
+
+const LikeBtn = styled.div`
+    cursor: pointer;
+    font-size: 25px;
+    color: #f00;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+`;
+
+const Button = styled.div`
+    margin-left: auto;
+    cursor: pointer;
+    background-color: #6C8891;
+    width: 70%;
+    height: 35px;
+    font-size: 20px;
+    text-align: center;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    &:hover{
+        background-color: #303B41;
+        color: #fff;
+    }
+`;
+// @return moviePoster API
+const Poster = styled.div`
+width: 210px;
+height: 300px;
+background-image: url(${({ moviePoster }) => moviePoster});
+background-repeat:no-repeat;
+background-size: cover;
+background-color: #999;
+display: flex;
+flex-direction: column;
+`;
+
 
 
 

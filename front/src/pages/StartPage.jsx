@@ -1,9 +1,10 @@
 import React from "react";
-import Container from "../components/public/Container";
-import StyledLink from "../components/public/StyledLink";
-import ButtonUI from "../components/public/ButtonUI";
 import { Link } from "react-router-dom"
-
+import {
+    Container,
+    ButtonUI,
+    StyledLink,
+} from "../components/public/StyledComponent";
 function StartPage() {
     return (
         <Container>
