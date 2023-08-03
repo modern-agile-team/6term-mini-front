@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 function PosterBox(props) {
-    const [ likeCount , setLikeCount ] = useState(0);
     const movieTitle = props.title;
     const moviePoster = props.poster;
     const movieRuntime = props.runtime;
@@ -25,7 +24,6 @@ function PosterBox(props) {
     }
 
     const likeBtn = () => {
-        setLikeCount(props.likeCount+1);
     }
 
     useEffect(()=>{

@@ -40,9 +40,12 @@ function ListPosterBox(props) {
             <FlexBox style={{
                 backgroundColor:"#999"
             }}>
-                <div>{movieTitle}</div>
-                <div>{movieRuntime}</div>
             </FlexBox>
+                <div style={{
+                    fontWeight:"bold",
+                    fontSize:20,
+                }}>영화 제목 : {movieTitle}</div>
+                <div>런닝 타임 : {movieRuntime}</div>
             <FlexBox>
                 <LikeBtn onClick={likeBtn}>❤{props.likeCount}</LikeBtn>
                 <Button onClick={ticketingBtn}>예매하기</Button>

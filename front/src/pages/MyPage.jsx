@@ -12,6 +12,7 @@ function MyPage() {
         email: "",
     });
 
+    //프로필 정보 가지고 오기(페이지 로드시)
     const getUserProfile = async () => {
         const res = await getProfileApi(`profile`);
         setUserInfo(()=>{
@@ -22,15 +23,26 @@ function MyPage() {
         });
     }
 
+    //예매 페이지 이동
     const goToMovieBtn = () => {
         navigate('/movielist');
     }
 
+    //로그아웃
     const logOutBtn = async () => {
         await logOutApi("logout");
         localStorage.clear();
         // window.location.replace("http://localhost:3000/"); //리펙토링 필요(front서버 url로 기입)
         navigate("/login");
+    }
+
+    //계정삭제
+    const deleteAccountBtn = async () => {
+        if(window.confirm("계정을 삭제 하시겠습니까?")) {
+            await logOutApi("users");
+            localStorage.clear();
+            navigate("/login");
+        }
     }
 
 
@@ -66,6 +78,7 @@ function MyPage() {
                 }}>
                     <AccessBox onClick={goToMovieBtn}>영화 목록 보러가기</AccessBox>
                     <AccessBox onClick={logOutBtn}>로그아웃</AccessBox>
+                    <AccessBox onClick={deleteAccountBtn}>회원탈퇴</AccessBox>
                 </div>
             </div>
             <div style={{

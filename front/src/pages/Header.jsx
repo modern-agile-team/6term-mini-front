@@ -33,7 +33,15 @@ function Header() {
                         <BigFont>혼</BigFont>자보는<BigFont>영</BigFont>화<BigFont>관</BigFont>
                     </AccessBox>
                     <HeaderBox>
-                        <AccessBox onClick={myPageBtn}>회원정보</AccessBox>
+                        <AccessBox onClick={myPageBtn}>
+                            <img 
+                            src={"https://ma6-mini-poster.s3.ap-northeast-2.amazonaws.com/free-icon-user-1946429.png"}
+                            style={{
+                                width:50,
+                                height:50,
+                            }}
+                            />
+                        </AccessBox>
                     </HeaderBox>
             </TitleBg>
         </Container>
@@ -54,4 +62,5 @@ const Font = styled.h1`
 const HeaderBox = styled.div`
     margin: auto 0 0 auto;
 `;
+
 export default Header;

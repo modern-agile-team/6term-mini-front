@@ -11,7 +11,7 @@ function MovieListPage() {
     
     //영화 정보 받아오기
     const getMovieTitle = async () => {
-        const res = await getMovieApi("/movie/get-movie");
+        const res = await getMovieApi("/movies/lists");
         setMovie(res.data);
     }
 
@@ -28,6 +28,7 @@ function MovieListPage() {
             <div style={{textAlign:"end"}}>
                 <Button onClick={toMain}>메인 페이지로</Button>
             </div>
+            <h2>전체 영화</h2>
             <div style={{
                 display: "flex",
                 flexWrap: "wrap",
@@ -43,6 +44,7 @@ function MovieListPage() {
                             />
                         );
                     })}
+                {/* <ListPosterBox /> */}
             </div>
             <LicenseBanner />
         </div>
@@ -57,16 +59,9 @@ const Button = styled.button`
     border-radius: 10px;
     cursor: pointer;
     margin: 10px;
-`;
-
-const ShowBorder = styled.div`
-    margin: ${({ margin }) => margin };
-
-    border: 3px solid #000;
-    background-color: #999;
-    border-radius: 5px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    &:hover {
+        background-color: #303B41;
+        color: #fff;
+    };
 `;
 export default MovieListPage;
