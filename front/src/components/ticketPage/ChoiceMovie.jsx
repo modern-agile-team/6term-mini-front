@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { getMovieApi } from "../../api/getMovieApi";
 
-const ChoiceMovie = () => {
+const ChoiceMovie = ({ onClickTitle}) => {
     const [ movie, setMovie ] = useState(null);
     
     const getMovieList = async () => {
@@ -10,9 +10,12 @@ const ChoiceMovie = () => {
         setMovie(res.data.movieInfo);
     };
 
-    const choiceBtn = async () => {
-        const res = await getMovieApi(`/movies/seats`)
-        console.log(res);
+    const choiceBtn = async (e) => {
+        movie.filter((data)=> {
+            if (data.id == e.target.name) {
+                onClickTitle(data)
+            }
+        })
     }
 
     useEffect(()=>{
@@ -20,10 +23,13 @@ const ChoiceMovie = () => {
     }, [])
     
     return (
-        <div>
+        <div style={{
+            padding:10,
+            backgroundColor:`rgb(238, 237, 237)`,
+        }}>
             {movie !== null && movie.map((data, idx)=>{
                 return (
-                    <MovieTime onClick={choiceBtn}>
+                    <MovieTime onClick={choiceBtn} name={data.id}>
                         <Title>{data.movie_title}</Title>
                         <Time>{data.movie_runtime}</Time>
                     </MovieTime>
@@ -33,7 +39,7 @@ const ChoiceMovie = () => {
     )
 };
 
-const MovieTime = styled.div`
+const MovieTime = styled.button`
     display: flex;
     border: 1px solid #000;
     width: 650px;
