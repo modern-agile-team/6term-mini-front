@@ -1,20 +1,15 @@
 import styled from "styled-components";
-import { getMovieApi } from "../../api/getMovieApi";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-const ChoiceSeat = ({ onClickSeat }) => {
-
-    const getSeatApi = async () => {
-        const res = await getMovieApi(`/movies/seats`);
-    }
+const ChoiceSeat = (props, { onClickSeat }) => {
     
-    const seatBtn = () => {
-        
+    const seatBtn = (e) => {
+        console.log(e.target.name);
     };
 
     useEffect(()=>{
-        getSeatApi();
-    }, [])
+        // console.log(getSeat);
+    })
 
     return (
         <div style={{
@@ -32,56 +27,56 @@ const ChoiceSeat = ({ onClickSeat }) => {
             </div>
             <Table>
                 <tr>
-                    <td>A</td>
-                    <Td>1</Td>
-                    <Td>2</Td>
-                    <Td>3</Td>
-                    <Td>4</Td>
-                    <Td>5</Td>
-                    <Td>6</Td>
-                    <Td>7</Td>
-                    <Td>8</Td>
-                    <Td>9</Td>
-                    <Td>10</Td>
+                    <td>1</td>
+                    <td><Td onClick={seatBtn} name={`A1`}>1</Td></td>
+                    <td><Td onClick={seatBtn} name={`A2`}>2</Td></td>
+                    <td><Td onClick={seatBtn} name={`A3`}>3</Td></td>
+                    <td><Td onClick={seatBtn} name={`A4`}>4</Td></td>
+                    <td><Td onClick={seatBtn} name={`A5`}>5</Td></td>
+                    <td><Td onClick={seatBtn} name={`A6`}>6</Td></td>
+                    <td><Td onClick={seatBtn} name={`A7`}>7</Td></td>
+                    <td><Td onClick={seatBtn} name={`A8`}>8</Td></td>
+                    <td><Td onClick={seatBtn} name={`A9`}>9</Td></td>
+                    <td><Td onClick={seatBtn} name={`A10`}>10</Td></td>
                 </tr>
                 <tr>
-                    <td>B</td>
-                    <Td>1</Td>
-                    <Td>2</Td>
-                    <Td>3</Td>
-                    <Td>4</Td>
-                    <Td>5</Td>
-                    <Td>6</Td>
-                    <Td>7</Td>
-                    <Td>8</Td>
-                    <Td>9</Td>
-                    <Td>10</Td>
+                    <td>2</td>
+                    <td><Td onClick={seatBtn} name={`B1`}>1</Td></td>
+                    <td><Td onClick={seatBtn} name={`B2`}>2</Td></td>
+                    <td><Td onClick={seatBtn} name={`B3`}>3</Td></td>
+                    <td><Td onClick={seatBtn} name={`B4`}>4</Td></td>
+                    <td><Td onClick={seatBtn} name={`B5`}>5</Td></td>
+                    <td><Td onClick={seatBtn} name={`B6`}>6</Td></td>
+                    <td><Td onClick={seatBtn} name={`B7`}>7</Td></td>
+                    <td><Td onClick={seatBtn} name={`B8`}>8</Td></td>
+                    <td><Td onClick={seatBtn} name={`B9`}>9</Td></td>
+                    <td><Td onClick={seatBtn} name={`B10`}>10</Td></td>
                 </tr>
                 <tr>
-                    <td>C</td>
-                    <Td>1</Td>
-                    <Td>2</Td>
-                    <Td>3</Td>
-                    <Td>4</Td>
-                    <Td>5</Td>
-                    <Td>6</Td>
-                    <Td>7</Td>
-                    <Td>8</Td>
-                    <Td>9</Td>
-                    <Td>10</Td>
+                    <td>3</td>
+                    <td><Td onClick={seatBtn} name={`C1`}>1</Td></td>
+                    <td><Td onClick={seatBtn} name={`C2`}>2</Td></td>
+                    <td><Td onClick={seatBtn} name={`C3`}>3</Td></td>
+                    <td><Td onClick={seatBtn} name={`C4`}>4</Td></td>
+                    <td><Td onClick={seatBtn} name={`C5`}>5</Td></td>
+                    <td><Td onClick={seatBtn} name={`C6`}>6</Td></td>
+                    <td><Td onClick={seatBtn} name={`C7`}>7</Td></td>
+                    <td><Td onClick={seatBtn} name={`C8`}>8</Td></td>
+                    <td><Td onClick={seatBtn} name={`C9`}>9</Td></td>
+                    <td><Td onClick={seatBtn} name={`C10`}>10</Td></td>
                 </tr>
                 <tr>
-                    <td>D</td>
-                    <Td>1</Td>
-                    <Td>2</Td>
-                    <Td>3</Td>
-                    <Td>4</Td>
-                    <Td>5</Td>
-                    <Td>6</Td>
-                    <Td>7</Td>
-                    <Td>8</Td>
-                    <Td>9</Td>
-                    <Td>10</Td>
+                    <td>4</td>
+                    <td><Td onClick={seatBtn} name={`D1`}>1</Td></td>
+                    <td><Td onClick={seatBtn} name={`D2`}>2</Td></td>
+                    <td><Td onClick={seatBtn} name={`D3`}>3</Td></td>
+                    <td><Td onClick={seatBtn} name={`D4`}>4</Td></td>
+                    <td><Td onClick={seatBtn} name={`D5`}>5</Td></td>
+                    <td><Td onClick={seatBtn} name={`D6`}>6</Td></td>
+                    <td><Td onClick={seatBtn} name={`D7`}>7</Td></td>
+                    <td><Td onClick={seatBtn} name={`D8`}>8</Td></td>
+                    <td><Td onClick={seatBtn} name={`D9`}>9</Td></td>
+                    <td><Td onClick={seatBtn} name={`D10`}>10</Td></td>
                 </tr>
                 
             </Table>
@@ -97,7 +92,7 @@ const Table = styled.table`
     border-collapse: separate;
 `;
 
-const Td = styled.td`
+const Td = styled.button`
     cursor: pointer;
     width: 30px;
     text-align: center;
