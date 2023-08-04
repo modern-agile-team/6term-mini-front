@@ -10,6 +10,11 @@ const ChoiceMovie = () => {
         setMovie(res.data.movieInfo);
     };
 
+    const choiceBtn = async () => {
+        const res = await getMovieApi(`/movies/seats`)
+        console.log(res);
+    }
+
     useEffect(()=>{
         getMovieList();
     }, [])
@@ -18,7 +23,7 @@ const ChoiceMovie = () => {
         <div>
             {movie !== null && movie.map((data, idx)=>{
                 return (
-                    <MovieTime>
+                    <MovieTime onClick={choiceBtn}>
                         <Title>{data.movie_title}</Title>
                         <Time>{data.movie_runtime}</Time>
                     </MovieTime>
@@ -33,10 +38,14 @@ const MovieTime = styled.div`
     border: 1px solid #000;
     width: 650px;
     padding: 10px;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    cursor: pointer;
+    /* margin-top: 15px;
+    margin-bottom: 15px; */
     justify-content: center;
     background-color: rgb(94, 94, 94);
+    &:hover {
+        background-color: #6C8891;
+    }
 `
 const Title = styled.div`
     background-color: rgb(48, 59, 65);

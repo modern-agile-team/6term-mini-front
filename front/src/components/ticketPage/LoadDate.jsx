@@ -4,11 +4,13 @@ import styled from "styled-components";
 
 const LoadDate = () => {
     return (
-        <div>
+        <div style={{
+            marginBottom: 15,
+        }}>
             <DayTitle>날짜</DayTitle>
             <DateBox>
                 <div>&lt;</div>
-                <Today num={1} />
+                <Today num={`20230803`} />
                 <Today />
                 <Today />
                 <Today />

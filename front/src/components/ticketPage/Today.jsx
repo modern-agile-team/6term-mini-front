@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 
 const Today = (props) => {
-
+    const day = [];
+    day.push(props.num)
     return (
         <DayBox>
-            날짜
+            {day}
         </DayBox>
     )
 };
