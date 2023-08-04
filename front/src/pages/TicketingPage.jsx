@@ -1,10 +1,14 @@
 import React from "react";
+import LoadDate from "../components/ticketPage/LoadDate";
+import { Container } from "../components/public/StyledComponent";
+import ChoiceMovie from "../components/ticketPage/ChoiceMovie";
 
 function TicketingPage(props) {
     return (
-        <div>
-            예매페이지
-        </div>
+        <Container margin={100}>
+            <LoadDate />
+            <ChoiceMovie />
+        </Container>
     ); 
 }
 

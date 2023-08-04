@@ -6,12 +6,14 @@ import { useNavigate } from "react-router-dom";
 import SlideBar from "../components/mainPage/SlideBar";
 import LicenseBanner from "../components/public/LincenseBanner";
 import { Container } from "../components/public/StyledComponent";
+import { createBrowserHistory } from "history";
+
+const history = createBrowserHistory();
 
 function MainPage() {
     const navigate = useNavigate();
     const [ movie, setMovie ] = useState(null);
     const [ isWindow, setIsWindow ] = useState(false);
-    const [ like, setLike ] = useState(null);
     const showNum = 5;
 
     //영화 정보 받아오기
@@ -32,6 +34,13 @@ function MainPage() {
     useEffect(()=>{
         getMovieTitle();
     }, [movie])
+
+    useEffect(()=>{
+        window.history.pushState(null, "", "");
+        window.onpopstate = () => {
+            navigate('/mainpage')
+        }
+    }, [history])
 
     return (
         <Container>
