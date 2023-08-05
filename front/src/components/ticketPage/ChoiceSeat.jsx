@@ -1,14 +1,15 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 
-const ChoiceSeat = (props, { onClickSeat }) => {
+const ChoiceSeat = ({ onClickSeat }) => {
     
     const seatBtn = (e) => {
-        console.log(e.target.name);
+        // console.log(e.target.name);
+        const res = e.target.name;
+        onClickSeat(res);
     };
 
     useEffect(()=>{
-        // console.log(getSeat);
     })
 
     return (

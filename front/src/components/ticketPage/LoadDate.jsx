@@ -4,7 +4,7 @@ import styled from "styled-components";
 const LoadDate = ({ onClickLoadDate }) => {
 
     const toDayBtn = (e) => {
-        const res = e.target.name
+        const res = e.target.name;
         onClickLoadDate(res);
     }
 
@@ -16,14 +16,14 @@ const LoadDate = ({ onClickLoadDate }) => {
             <DayTitle>날짜</DayTitle>
             <DateBox>
                 <div>&lt;</div>
-                <DayBox name={230801} onClick={toDayBtn}>08/01</DayBox>
-                <DayBox name={230802} onClick={toDayBtn}>08/02</DayBox>
-                <DayBox name={230803} onClick={toDayBtn}>08/03</DayBox>
-                <DayBox name={230804} onClick={toDayBtn}>08/04</DayBox>
-                <DayBox name={230805} onClick={toDayBtn}>08/05</DayBox>
-                <DayBox name={230806} onClick={toDayBtn}>08/06</DayBox>
-                <DayBox name={230807} onClick={toDayBtn}>08/07</DayBox>
-                <DayBox name={230808} onClick={toDayBtn}>08/08</DayBox>
+                <DayBox name={`20230801`} onClick={toDayBtn}>08/01</DayBox>
+                <DayBox name={`20230802`} onClick={toDayBtn}>08/02</DayBox>
+                <DayBox name={`20230803`} onClick={toDayBtn}>08/03</DayBox>
+                <DayBox name={`20230804`} onClick={toDayBtn}>08/04</DayBox>
+                <DayBox name={`20230805`} onClick={toDayBtn}>08/05</DayBox>
+                <DayBox name={`20230806`} onClick={toDayBtn}>08/06</DayBox>
+                <DayBox name={`20230807`} onClick={toDayBtn}>08/07</DayBox>
+                <DayBox name={`20230808`} onClick={toDayBtn}>08/08</DayBox>
                 <div>&gt;</div>
             </DateBox>
         </div>

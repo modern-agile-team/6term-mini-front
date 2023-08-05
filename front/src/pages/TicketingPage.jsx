@@ -10,33 +10,52 @@ function TicketingPage(props) {
     const [ getDay, setDay ] = useState("");
     const [ getMovieTitle, setMovieTitle ] = useState("");
     const [ getMovieSeat, setMovieSeat ] = useState("");
-    const [ getSeat, setSeat ] = useState("");
+    const [ getSeatApi, setSeatApi ] = useState("");
+    const [ getSeatCheck, setSeatCheck ] = useState("");
 
+    //날짜 Handler
     const LoadDateHandler = (data) => {
         setDay(data);
     };
 
+    //영화 선택 Handler
     const ChoiceMovieHandler = (data) => {
         setMovieTitle(data);
     };
 
     const ChoiceSeatHandler = (data) => {
-        setMovieSeat(data);
+        setSeatCheck(data);
     };
 
-    const getSeatApi = async () => {
+    //현재 예매된 좌석 API 받아오기
+    const callSeatApi = async () => {
         const res = await getMovieApi(`/movies/seats`);
-        setSeat(res.data.extractedValues);
+        setSeatApi(res.data.extractedValues);
     }
+
+    //예매된 좌석 중, 해당 날짜, 영화에 해당하는 정보 받기
+    const checkMovieId = () => {
+        const getSeat = [...getSeatApi];
+        const checkId = []
+        getSeat.filter((data)=>{
+            if (data.movieId === getMovieTitle.id) {
+                checkId.push(data);
+            }
+        });
+        setMovieSeat(checkId);
+    };
     
     useEffect(()=>{
-        console.log(getMovieTitle);
+        // console.log(getMovieTitle); //선택된 영화
+        // console.log(getSeatApi);    //불러온 좌석 정보
+        // console.log(getMovieSeat);  //선택된 영화 좌석 정보
+        // console.log(getDay);        //선택된 날짜
     })
-
+    
     useEffect(()=>{
-        getSeatApi();
+        callSeatApi();
+        checkMovieId();
     }, [])
-
 
     return (
         <Container margin={100}>
@@ -59,6 +78,7 @@ function TicketingPage(props) {
                     title={getMovieTitle.movie_title}
                     poster={getMovieTitle.movie_poster}
                     runtime={getMovieTitle.movie_runtime}
+                    seat={getSeatCheck}
                 />
             </div>
         </Container>
