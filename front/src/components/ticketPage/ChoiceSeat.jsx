@@ -5,15 +5,15 @@ import { getMovieApi } from "../../api/getMovieApi";
 
 
 const ChoiceSeat = ({ onClickSeat , id, day}) => {
-    const [ seat, setSeat ] = useState("");
     const theatorSeat = 
     {
-        "1": [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-        "2": [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-        "3": [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-        "4": [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        "A": [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        "B": [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        "C": [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        "D": [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     }
-    
+    const [ seat, setSeat ] = useState([]);  //이미 선택된 좌석을 담는 배열
+
     const getSeatApi = async () => {
         const response = await getMovieApi(`/movies/seats`);
         const arr = []
@@ -31,13 +31,6 @@ const ChoiceSeat = ({ onClickSeat , id, day}) => {
         const res = e.target.name;
         onClickSeat(res);
     };
-
-
-    useEffect(()=>{
-        // console.log(id);
-        // console.log(day);
-        console.log(seat);
-    })
     
     useEffect(()=>{
         getSeatApi();
@@ -63,25 +56,35 @@ const ChoiceSeat = ({ onClickSeat , id, day}) => {
                     {Object.entries(theatorSeat).map((data, idx)=>{
                         return (
                             <tr key={idx}>
-                                <td>{data[0]}</td>
-                                {data[1].map((chlid, index)=>{
-                                    if (`${seat.seatRow}${seat.seatCol}` !== `${data[0]}${data[1][index]}`) {
-                                        return (
-                                            <td><Td onClick={seatBtn} name={`${data[0]}${chlid}`}>{chlid}</Td></td>
-                                        )
-                                    } else {
-                                        return (
-                                            <td><Reservation name={`${data[0]}${chlid}`}>{chlid}</Reservation></td>
-                                        )
-                                    }
-                                })}
+                            <td>{data[0]}</td>
+                            {data[1].map((chlid, index)=>{
+                                const currentSeat = `${data[0]}${chlid}`;
+                                const isReserved = seat.some(s => `${s.seatRow}${s.seatCol}` === currentSeat);
+
+                                if (isReserved) {
+                                return (
+                                    <td key={index}>
+                                    <Reservation name={currentSeat}>{chlid}</Reservation>
+                                    </td>
+                                );
+                                } else {
+                                return (
+                                    <td key={index}>
+                                    <Td onClick={seatBtn} name={currentSeat}>{chlid}</Td>
+                                    </td>
+                                );
+                                }
+                            })}
                             </tr>
-                        )
+                        );
                     })}
                 </tbody>
             </Table>
             <div style={{display:"flex"}}>
-                <Reservation></Reservation><div>예매완료</div>
+                <div style={{
+                    width: 20,
+                    backgroundColor: "rgb(52, 73, 94)",
+                }}></div><div>예매완료</div>
             </div>
             <div style={{display:"flex"}}>
                 <div style={{
@@ -111,7 +114,7 @@ const Td = styled.button`
     `
 
 const Reservation = styled.button`
-    width: 20px;
+    width: 30px;
     text-align: center;
     pointer-events: none;
     background-color: rgb(52, 73, 94);

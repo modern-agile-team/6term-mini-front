@@ -24,7 +24,7 @@ const LoadDate = ({ onClickLoadDate }) => {
 
     useEffect(()=>{
         getMovieSeatApi();
-    }, [api])
+    }, [])
 
     return (
         <div style={{

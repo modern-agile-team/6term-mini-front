@@ -73,7 +73,8 @@ function TicketingPage(props) {
                     day={getDay !== null && getDay[0]}
                     id={getMovieTitle.movie_id}
                 />
-                <Ticket 
+                <Ticket
+                    id = {getMovieTitle.movie_id}
                     day={getDay !== null && getDay[0]} 
                     title={getMovieTitle.movie_title}
                     poster={getMovieTitle.movie_poster}
