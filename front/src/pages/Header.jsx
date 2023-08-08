@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import {
@@ -6,6 +6,7 @@ import {
     Container,
     TitleBg,
 } from "../components/public/StyledComponent";
+import logOutApi from "../api/logOutApi";
 
 function Header() {
     const navigate = useNavigate();
@@ -27,6 +28,17 @@ function Header() {
             navigate("/mypage");
         }
     }
+
+    const handleUnload = async () => {
+        await logOutApi("logout")
+    }
+
+    //페이지 닫을 시 서버 토큰 제거
+    useEffect(() => {
+        window.addEventListener("beforeunload", handleUnload);
+      
+        return () => window.removeEventListener("beforeunload", handleUnload);
+      }, [handleUnload]);
 
     return (
         <Container>

@@ -6,12 +6,14 @@ import { useNavigate } from "react-router-dom";
 import SlideBar from "../components/mainPage/SlideBar";
 import LicenseBanner from "../components/public/LincenseBanner";
 import { Container } from "../components/public/StyledComponent";
+import { createBrowserHistory } from "history";
+
+const history = createBrowserHistory();
 
 function MainPage() {
     const navigate = useNavigate();
     const [ movie, setMovie ] = useState(null);
     const [ isWindow, setIsWindow ] = useState(false);
-    const [ like, setLike ] = useState(null);
     const showNum = 5;
 
     //영화 정보 받아오기
@@ -33,6 +35,14 @@ function MainPage() {
         getMovieTitle();
     }, [movie])
 
+    //되돌아가기 막기
+    useEffect(()=>{
+        window.history.pushState(null, "", "");
+        window.onpopstate = () => {
+            navigate('/mainpage')
+        }
+    }, [history])
+
     return (
         <Container>
             <div>
@@ -52,15 +62,17 @@ function MainPage() {
                     flexDirection:"row",
                     flexWrap: "nowrap",
                 }}>
+                    {/* {console.log(movie)} */}
                     {movie !== null && movie.map((data, idx)=>{  //조건부 랜더링사용(null값일땐 랜더링x)
                     if(idx < showNum) {
                         return (
                             <PosterBox
-                                id={data.id}
-                                like={data.like}
-                                title={data.movie_title} 
-                                poster={data.movie_poster}
-                                runtime={data.movie_runtime}
+                            key={idx}
+                            id={data.movie_id}
+                            like={data.like_count}
+                            title={data.movie_title} 
+                            poster={data.movie_poster}
+                            runtime={data.movie_runtime}
                             />
                         );
                     }

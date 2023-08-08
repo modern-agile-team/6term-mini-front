@@ -39,6 +39,7 @@ function MyPage() {
     //계정삭제
     const deleteAccountBtn = async () => {
         if(window.confirm("계정을 삭제 하시겠습니까?")) {
+            await logOutApi("logout");
             await logOutApi("users");
             localStorage.clear();
             navigate("/login");
