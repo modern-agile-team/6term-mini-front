@@ -38,8 +38,8 @@ function MovieListPage() {
                 {movie !== null && movie.map((data, idx)=>{  //조건부 랜더링사용(null값일땐 랜더링x)
                     return (
                         <ListPosterBox
-                            id={data.id}
-                            like={data.like}
+                            id={data.movie_id}
+                            like={data.like_count}
                             poster={data.movie_poster}
                             title={data.movie_title}
                             runtime={data.movie_runtime}

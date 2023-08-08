@@ -35,6 +35,7 @@ function MainPage() {
         getMovieTitle();
     }, [movie])
 
+    //되돌아가기 막기
     useEffect(()=>{
         window.history.pushState(null, "", "");
         window.onpopstate = () => {
@@ -61,15 +62,17 @@ function MainPage() {
                     flexDirection:"row",
                     flexWrap: "nowrap",
                 }}>
+                    {/* {console.log(movie)} */}
                     {movie !== null && movie.map((data, idx)=>{  //조건부 랜더링사용(null값일땐 랜더링x)
                     if(idx < showNum) {
                         return (
                             <PosterBox
-                                id={data.id}
-                                like={data.like}
-                                title={data.movie_title} 
-                                poster={data.movie_poster}
-                                runtime={data.movie_runtime}
+                            key={idx}
+                            id={data.movie_id}
+                            like={data.like_count}
+                            title={data.movie_title} 
+                            poster={data.movie_poster}
+                            runtime={data.movie_runtime}
                             />
                         );
                     }

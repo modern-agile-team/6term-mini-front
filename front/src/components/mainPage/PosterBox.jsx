@@ -4,9 +4,6 @@ import styled from "styled-components";
 import patchLikeApi from "../../api/patchLikeApi";
 
 function PosterBox(props) {
-    const movieTitle = props.title;
-    const moviePoster = props.poster;
-    const movieRuntime = props.runtime;
     const navigate = useNavigate();
 
     const ticketingBtn = () => {
@@ -21,14 +18,14 @@ function PosterBox(props) {
         <div style={{
             margin: 20,
         }}>
-            <Poster moviePoster={moviePoster}>
+            <Poster movieposter={props.poster}>
                 <div style={{
                     fontWeight:"bold",
                     margin: 5,
-                }}>{movieTitle}</div>
+                }}>{props.title}</div>
                 <div style={{
                     marginTop:"auto",
-                }}>{movieRuntime}</div>
+                }}>{props.runtime}</div>
             </Poster>
             <div style={{
                 display:"flex",
@@ -71,7 +68,7 @@ const Button = styled.div`
 const Poster = styled.div`
 width: 210px;
 height: 300px;
-background-image: url(${({ moviePoster }) => moviePoster});
+background-image: url(${({ movieposter }) => movieposter});
 background-repeat:no-repeat;
 background-size: cover;
 background-color: #999;

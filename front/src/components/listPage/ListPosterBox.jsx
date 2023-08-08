@@ -3,9 +3,6 @@ import styled from "styled-components";
 import patchLikeApi from "../../api/patchLikeApi";
 
 function ListPosterBox(props) {
-    const movieTitle = props.title;
-    const moviePoster = props.poster;
-    const movieRuntime = props.runtime;
     const navigate = useNavigate();
 
     const ticketingBtn = () => {
@@ -19,7 +16,7 @@ function ListPosterBox(props) {
         <div style={{
             margin: 20,
         }}>
-            <Poster moviePoster={moviePoster}/>
+            <Poster moviePoster={props.poster}/>
             <FlexBox style={{
                 backgroundColor:"#999"
             }}>
@@ -27,8 +24,8 @@ function ListPosterBox(props) {
                 <div style={{
                     fontWeight:"bold",
                     fontSize:20,
-                }}>영화 제목 : {movieTitle}</div>
-                <div>런닝 타임 : {movieRuntime}</div>
+                }}>영화 제목 : {props.title}</div>
+                <div>런닝 타임 : {props.runtime}</div>
             <FlexBox>
                 <LikeBtn onClick={likeBtn}>❤{props.like}</LikeBtn>
                 <Button onClick={ticketingBtn}>예매하기</Button>

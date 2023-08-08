@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { getMovieApi } from "../../api/getMovieApi";
 
-const ChoiceMovie = ({ onClickTitle}) => {
+const ChoiceMovie = ({ onClickTitle }) => {
     const [ movie, setMovie ] = useState(null);
     
     const getMovieList = async () => {
@@ -12,7 +12,7 @@ const ChoiceMovie = ({ onClickTitle}) => {
 
     const choiceBtn = async (e) => {
         movie.filter((data)=> {
-            if (data.id == e.target.name) {
+            if (String(data.movie_id) === String(e.target.name)) {
                 onClickTitle(data)
             }
         })
@@ -29,7 +29,7 @@ const ChoiceMovie = ({ onClickTitle}) => {
         }}>
             {movie !== null && movie.map((data, idx)=>{
                 return (
-                    <MovieTime onClick={choiceBtn} name={data.id}>
+                    <MovieTime key={idx} onClick={choiceBtn} name={data.movie_id}>
                         <Title>{data.movie_title}</Title>
                         <Time>{data.movie_runtime}</Time>
                     </MovieTime>

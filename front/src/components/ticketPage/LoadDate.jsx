@@ -1,12 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components"; 
+import { getMovieApi } from "../../api/getMovieApi";
 
 const LoadDate = ({ onClickLoadDate }) => {
+    const [ api, setApi ] = useState("");
+
+    const getMovieSeatApi = async () => {
+        const res = await getMovieApi(`/movies/seats`);
+        setApi(res.data.seat)
+    }
 
     const toDayBtn = (e) => {
+        const seat = [...api];
         const res = e.target.name;
-        onClickLoadDate(res);
-    }
+        const arr = [res];
+        seat.filter((data, idx) => {
+            if (Number(data.seatDate) === Number(res)) {
+                arr.push(data);
+            }
+            onClickLoadDate(arr);
+        });
+    };
+
+    useEffect(()=>{
+        getMovieSeatApi();
+    }, [api])
 
     return (
         <div style={{
