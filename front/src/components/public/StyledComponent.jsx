@@ -2,9 +2,12 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 //@param {#, rgb} 색상 정보 입력
+//@param {#, rgb} 색상 정보 입력
+//@returns 폰트 색상, 배경 색상 변경
 export const AccessBox = styled.div`
     cursor: pointer;
-    color: ${({ color }) => color};
+    color: #${({ color }) => color};
+    background-color: ${({ bgColor }) => bgColor };
 `;
 
 //@param {number} width input가로 길이 (px)

@@ -2,14 +2,17 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { getMovieApi } from "../../api/getMovieApi";
 
-const ChoiceMovie = ({ onClickTitle }) => {
+const ChoiceMovie = ({ onClickTitle , date }) => {
     const [ movie, setMovie ] = useState(null);
     
+    //영화 리스트 불러오기
     const getMovieList = async () => {
         const res = await getMovieApi(`/movies/lists`);
-        setMovie(res.data.movieInfo);
+        const arr = [...res.data.movieInfo];
+        setMovie(arr);
     };
 
+    //영화 선택시 상태 끌어올리기
     const choiceBtn = async (e) => {
         movie.filter((data)=> {
             if (String(data.movie_id) === String(e.target.name)) {
@@ -30,8 +33,8 @@ const ChoiceMovie = ({ onClickTitle }) => {
             {movie !== null && movie.map((data, idx)=>{
                 return (
                     <MovieTime key={idx} onClick={choiceBtn} name={data.movie_id}>
-                        <Title>{data.movie_title}</Title>
-                        <Time>{data.movie_runtime}</Time>
+                        <Title onClick={choiceBtn} name={data.movie_id}>{data.movie_title}</Title>
+                        <Time onClick={choiceBtn} name={data.movie_id}>{data.movie_runtime}</Time>
                     </MovieTime>
                 ) 
             })}
@@ -53,18 +56,24 @@ const MovieTime = styled.button`
         background-color: #6C8891;
     }
 `
-const Title = styled.div`
+const Title = styled.button`
     background-color: rgb(48, 59, 65);
     color: #fff ;
     width: 280px;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
+    border: 0px;
+    outline: 0px;
+    cursor: pointer;
 `
-const Time = styled.div`
+const Time = styled.button`
     background-color: rgb(48, 59, 65);
     color: #fff ;
     width: 280px;
+    border: 0px;
+    outline: 0px;
+    cursor: pointer;
     text-align: center;
     margin-left: auto;
     margin-right: auto;

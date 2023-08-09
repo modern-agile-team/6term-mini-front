@@ -6,9 +6,6 @@ import { useNavigate } from "react-router-dom";
 import SlideBar from "../components/mainPage/SlideBar";
 import LicenseBanner from "../components/public/LincenseBanner";
 import { Container } from "../components/public/StyledComponent";
-import { createBrowserHistory } from "history";
-
-const history = createBrowserHistory();
 
 function MainPage() {
     const navigate = useNavigate();
@@ -41,7 +38,7 @@ function MainPage() {
         window.onpopstate = () => {
             navigate('/mainpage')
         }
-    }, [history])
+    }, [navigate])
 
     return (
         <Container>
@@ -62,7 +59,6 @@ function MainPage() {
                     flexDirection:"row",
                     flexWrap: "nowrap",
                 }}>
-                    {/* {console.log(movie)} */}
                     {movie !== null && movie.map((data, idx)=>{  //조건부 랜더링사용(null값일땐 랜더링x)
                     if(idx < showNum) {
                         return (
@@ -76,6 +72,7 @@ function MainPage() {
                             />
                         );
                     }
+                    return null;
                     })}
                 </div>
             </div>

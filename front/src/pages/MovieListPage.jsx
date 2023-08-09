@@ -15,6 +15,7 @@ function MovieListPage() {
         setMovie(res.data.movieInfo);
     }
 
+    //메인페이지로 이동
     const toMain = () => {
         navigate('/mainpage');
     }
@@ -28,7 +29,9 @@ function MovieListPage() {
             <div style={{textAlign:"end"}}>
                 <Button onClick={toMain}>메인 페이지로</Button>
             </div>
-            <h2>전체 영화</h2>
+            <h2 style={{
+                marginLeft: 100,
+            }}>전체 영화</h2>
             <div style={{
                 display: "flex",
                 flexWrap: "wrap",

@@ -3,7 +3,7 @@ import MovieTicket from "../components/myPage/MovieTicket";
 import { useNavigate } from "react-router-dom";
 import getProfileApi from "../api/getProfileApi";
 import logOutApi from "../api/logOutApi";
-import { AccessBox } from "../components/public/StyledComponent";
+import styled from "styled-components";
 
 function MyPage() {
     const navigate = useNavigate();
@@ -11,6 +11,13 @@ function MyPage() {
         id: "",
         email: "",
     });
+
+    const [ ticketInfo, setTicketInfo ] = useState({
+        movieId: "",
+        seatRow: "",
+        seatCol: "",
+        seatDate: "",
+    })
 
     //프로필 정보 가지고 오기(페이지 로드시)
     const getUserProfile = async () => {
@@ -23,17 +30,19 @@ function MyPage() {
         });
     }
 
-    //예매 페이지 이동
+    //영화 목록 페이지 이동
     const goToMovieBtn = () => {
         navigate('/movielist');
     }
 
     //로그아웃
     const logOutBtn = async () => {
-        await logOutApi("logout");
-        localStorage.clear();
-        // window.location.replace("http://localhost:3000/"); //리펙토링 필요(front서버 url로 기입)
-        navigate("/login");
+        if(window.confirm("로그아웃 하시겠습니까?")) {
+            await logOutApi("logout");
+            localStorage.clear();
+            // window.location.replace("http://localhost:3000/"); //리펙토링 필요(front서버 url로 기입)
+            navigate("/login");
+        }
     }
 
     //계정삭제
@@ -77,9 +86,9 @@ function MyPage() {
                 <div style={{
                     marginLeft: "auto",
                 }}>
-                    <AccessBox onClick={goToMovieBtn}>영화 목록 보러가기</AccessBox>
-                    <AccessBox onClick={logOutBtn}>로그아웃</AccessBox>
-                    <AccessBox onClick={deleteAccountBtn}>회원탈퇴</AccessBox>
+                    <Btn bgColor={`rgb(224, 224, 224)`} onClick={goToMovieBtn}>영화 목록 보러가기</Btn>
+                    <Btn bgColor={`rgb(224, 224, 224)`} onClick={logOutBtn}>로그아웃</Btn>
+                    <Btn bgColor={`rgb(224, 224, 224)`} onClick={deleteAccountBtn}>회원탈퇴</Btn>
                 </div>
             </div>
             <div style={{
@@ -98,5 +107,15 @@ function MyPage() {
         </div>
     )
 }
+
+const Btn = styled.div`
+    background-color: rgb(224, 224, 224);
+    cursor: pointer;
+    margin: 10px;
+    &:hover {
+        background-color: #999;
+        color: #fff;
+    }
+`
 
 export default MyPage;

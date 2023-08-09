@@ -6,6 +6,7 @@ import {
     StyledLink,
 } from "../components/public/StyledComponent";
 function StartPage() {
+    //시작 페이지 개발자 프로필 등록
     return (
         <Container>
             <StyledLink to="/login">

@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import reservationApi from "../../api/reservationApi";
 import { useNavigate } from "react-router";
+import { useEffect } from "react";
 
 const Ticket = (props) => {
     const navigate = useNavigate();
     //좌석 정보 행 열로 쪼개기
     const seatLocation = String(props.seat).split("");
-    
+
     //예매 완료 버튼 클릭
     const postTicket = async () => {
         if (props.id !== undefined && props.day && seatLocation[0] !== undefined) {
@@ -16,14 +17,15 @@ const Ticket = (props) => {
                 "movieId": props.id,
                 "seatRow": seatLocation[0],
                 "seatCol": seatLocation[1],
-                "seatDate": props.day
+                "seatDate": props.day,
             });
+            //마이페이지로 이동
+            navigate(`/mypage`);
         } else {
             if (props.id === undefined) alert('영화를 선택해주세요.');
             if (!props.day) alert(`날짜를 선택해주세요.`);
             if (seatLocation[0] === undefined) alert(`좌석을 선택해주세요.`);
         }
-        navigate(`/mypage`);
     }
 
     return (
@@ -32,12 +34,12 @@ const Ticket = (props) => {
             marginRight: `auto`,
             border: 2,
             borderStyle: `solid`,
-            width: 145,
+            width: 160,
             height: 210,
         }}>
-            <div>
+            <Title>
                 {props.title === undefined ? "제목" : props.title}
-            </div>
+            </Title>
             <hr />
             <div style={{
                 display:"flex"
@@ -51,21 +53,53 @@ const Ticket = (props) => {
                         width:60,
                         height: 80,
                         marginLeft: `auto`,
-                        backgroundColor: "#999"
+                        backgroundColor: "rgb(48, 59, 65)",
                     }} 
                     src={props.poster}
+                    alt="영화포스터"
                 />
             </div>
             <hr />
-            <div>선택좌석 : {props.seat}</div>
+            <div style={{
+                width: 150,
+                height: 25,
+                display:"flex",
+                padding: 5,
+            }}>
+                선택좌석 : &nbsp;<TicketBox>{props.seat}</TicketBox>
+            </div>
             <hr />
-            <div>결제금액 : {
+            <div style={{
+                margin: 5,
+            }}>
+                결제금액 : {
                     props.title && props.day && props.seat ? "10,000원" : undefined    
                 }
             </div>
-            <button onClick={postTicket}>완료</button>
+            <PayBtn onClick={postTicket}>완료</PayBtn>
         </div>
     )
 };
+
+const Title = styled.div`
+    background-color:rgb(48, 59, 65);
+    color: #fff;
+    text-align: center;
+`
+
+const TicketBox = styled.div`
+    background-color: rgb(48, 59, 65);
+    color: #fff;
+    border-radius: 5px;
+`
+const PayBtn = styled.button`
+    background-color: rgb(48, 59, 65);
+    color: #fff;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    width: 100%;
+    height: 36px;
+    cursor: pointer;
+`
 
 export default Ticket;

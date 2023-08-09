@@ -15,8 +15,7 @@ export default function SlideBar() {
   const NextSlide = () => {
     if (currentSlide >= TOTAL_SLIDES) {
       // 더 이상 넘어갈 슬라이드가 없으면
-      setCurrentSlide(0); // 1번째 사진으로 넘어갑니다.
-      // return;  // 클릭이 작동하지 않습니다.
+      setCurrentSlide(0); // 1번째 사진으로 넘어감
     } else {
       setCurrentSlide(currentSlide + 1);
     }
@@ -24,8 +23,7 @@ export default function SlideBar() {
   // Prev 버튼 클릭 시
   const PrevSlide = () => {
     if (currentSlide === 0) {
-      setCurrentSlide(TOTAL_SLIDES); // 마지막 사진으로 넘어갑니다.
-      // return;  // 클릭이 작동하지 않습니다.
+      setCurrentSlide(TOTAL_SLIDES); // 마지막 사진으로 넘어감
     } else {
       setCurrentSlide(currentSlide - 1);
     }
@@ -67,7 +65,7 @@ const Container = styled.div`
   width: 1200px;
   margin: auto;
   height: 480px;
-  overflow: hidden; // 선을 넘어간 이미지들은 숨겨줍니다.
+  overflow: hidden; // 선을 넘어간 이미지들은 숨김.
 `;
 const Button = styled.div`
   all: unset;
@@ -86,7 +84,7 @@ const Button = styled.div`
 const SliderContainer = styled.div`
   margin: 0 auto;
   margin-bottom: 1rem;
-  display: flex; // 이미지들을 가로로 나열합니다.
+  display: flex; // 이미지들을 가로로 나열.
 `;
 const Center = styled.div`
   text-align: center;

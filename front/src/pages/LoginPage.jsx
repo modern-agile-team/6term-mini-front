@@ -21,18 +21,22 @@ function LoginPage() {
         pw: userPw, 
     }
 
+    //아이디 입력 정보 받아오기
     const getUserId = (e) => {
         setUserId(e.target.value);
     }
 
+    //비밀번호 입력 정보 받아오기
     const getUserPw = (e) => {
         setUserPw(e.target.value);
     }
 
+    // form 새로고침 방지
     function onSubmit(e) {
         e.preventDefault();
     }
 
+    //로그인 버튼 클릭 시 이벤트
     const loginHandler = async () => {
         const { status, data } = await loginApi(userInfo)
         if (status === 200) {

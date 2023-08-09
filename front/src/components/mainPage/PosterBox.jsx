@@ -22,9 +22,11 @@ function PosterBox(props) {
                 <div style={{
                     fontWeight:"bold",
                     margin: 5,
+                    color: "#fff"
                 }}>{props.title}</div>
                 <div style={{
                     marginTop:"auto",
+                    color: "#fff"
                 }}>{props.runtime}</div>
             </Poster>
             <div style={{
@@ -74,6 +76,7 @@ background-size: cover;
 background-color: #999;
 display: flex;
 flex-direction: column;
+border: 2px solid #000;
 `;
 
 

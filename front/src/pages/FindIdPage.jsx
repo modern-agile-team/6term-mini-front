@@ -14,14 +14,17 @@ import {
 function FindIdPage() {
     const [ findId, setfindId ] = useState("");
 
+    //입력 정보 가져오기
     const onChange = (e) => {
         setfindId(e.target.value);
     }
 
+    //확인 버튼 클릭 시
     const currectBtn = () => {
         findIdApi("id", { email: findId });
     }
 
+    //form 새로고침 방지
     const onSubminHandler = (e) => {
         e.preventDefault();
     }

@@ -5,6 +5,7 @@ import { getMovieApi } from "../../api/getMovieApi";
 
 
 const ChoiceSeat = ({ onClickSeat , id, day}) => {
+    //영화 자리 배열
     const theatorSeat = 
     {
         "A": [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
@@ -14,19 +15,28 @@ const ChoiceSeat = ({ onClickSeat , id, day}) => {
     }
     const [ seat, setSeat ] = useState([]);  //이미 선택된 좌석을 담는 배열
 
+    //이미 예매된 좌석 불러오기
     const getSeatApi = async () => {
         const response = await getMovieApi(`/movies/seats`);
         const arr = []
         const seatApi = [...response.data.seat];
         seatApi.filter((data, idx)=> {
-            if(data.movieId == id && data.seatDate == day) {
+            //가져온 날짜 정보 가공하기
+            const originalTime = data.seatDate;
+            const dateObj = new Date(originalTime);
+
+            const year = dateObj.getFullYear();
+            const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+            const days = String(dateObj.getDate()).padStart(2, "0");
+
+            const formattedDate = `${year}-${month}-${days}`;
+            if(data.movieId == id && formattedDate == day) {
                 arr.push(data);
             }
         });
         setSeat(arr);
     }
-    
-
+    //좌석 누르면 상위로 State 끌어올리기
     const seatBtn = (e) => {
         const res = e.target.name;
         onClickSeat(res);
@@ -96,12 +106,14 @@ const ChoiceSeat = ({ onClickSeat , id, day}) => {
     );
 };
 
+//영화 좌석 테이블
 const Table = styled.table`
     width: 400px;
     border-spacing: 10px;
     border-collapse: separate;
 `;
 
+//영화 버튼 
 const Td = styled.button`
     cursor: pointer;
     width: 30px;
@@ -111,13 +123,13 @@ const Td = styled.button`
         background-color: #f00;
         color: #fff;
     }
-    `
+`;
 
 const Reservation = styled.button`
     width: 30px;
     text-align: center;
     pointer-events: none;
     background-color: rgb(52, 73, 94);
-`
+`;
 
 export default ChoiceSeat;
