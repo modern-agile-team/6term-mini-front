@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import MovieTicket from "../components/myPage/MovieTicket";
 import { useNavigate } from "react-router-dom";
 import getProfileApi from "../api/getProfileApi";
 import logOutApi from "../api/logOutApi";
 import styled from "styled-components";
+import { getMovieApi } from "../api/getMovieApi";
+import cancelMovieApi from "../api/cancelMovieApi";
 
 function MyPage() {
     const navigate = useNavigate();
@@ -11,13 +12,21 @@ function MyPage() {
         id: "",
         email: "",
     });
-
     const [ ticketInfo, setTicketInfo ] = useState({
-        movieId: "",
-        seatRow: "",
-        seatCol: "",
-        seatDate: "",
-    })
+        mySeat: [],
+        movie: [],
+    });
+
+    const getTicketInfo = async () => {
+        const responseMySeat = await getMovieApi(`/movies/myseats`);
+        const responseMovie = await getMovieApi(`/movies/lists`);
+        setTicketInfo(()=>{
+            return {
+                mySeat: responseMySeat.data.userSeat,
+                movie: responseMovie.data.movieInfo,
+            }
+        });
+    }
 
     //프로필 정보 가지고 오기(페이지 로드시)
     const getUserProfile = async () => {
@@ -55,10 +64,23 @@ function MyPage() {
         }
     }
 
+    const cancelMovie = async (e) => {
+        const seatId = e.target.name;
+        console.log(seatId);
+        if(window.confirm("예매를 취소하시겠습니까?")) {
+            const response = await cancelMovieApi(`/movies/users/seat`, seatId);
+            if(response.data.success) alert('취소가 완료 되었습니다.');
+        }
+    }
 
     useEffect(()=>{
         getUserProfile();
+        getTicketInfo();
     },[]);
+
+    useEffect(()=>{
+        console.log(ticketInfo);
+    })
 
     return (
         <div>
@@ -101,8 +123,24 @@ function MyPage() {
                 flexDirection: "row",
                 margin: 30,
             }}>
-                <MovieTicket />
-                <MovieTicket />
+                {ticketInfo.mySeat !== null && ticketInfo.mySeat.map((data, idx) => {
+                    return (
+                        <TicketBox>
+                            <div>{ticketInfo.movie[idx].movie_id === data.movieId ? ticketInfo.movie[idx].movie_title : ticketInfo.movie[idx-1].movie_title}</div>
+                            <div>
+                                <div>날짜 : {data.seatDate.slice(0, 10)}</div>
+                                <div>시간 : {}</div>
+                            </div>
+                            <div>
+                                선택좌석 : <div>{data.seatRow}{data.seatCol}</div>
+                            </div>
+                            <div>
+                                <img src="페이지 하나 만들어" alt="QR코드"/>
+                            </div>
+                            <button name={data.id} onClick={cancelMovie}>예매 취소</button>
+                        </TicketBox>
+                    )
+                })}
             </div>
         </div>
     )
@@ -116,6 +154,11 @@ const Btn = styled.div`
         background-color: #999;
         color: #fff;
     }
-`
+`;
+
+const TicketBox = styled.div`
+    border: 1px solid #f00;
+    margin: 30px;
+`;
 
 export default MyPage;
