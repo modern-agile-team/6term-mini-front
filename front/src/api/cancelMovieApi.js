@@ -7,16 +7,16 @@ const cancelMovieApi = async (url, seatId) => {
     const refreshToken = localStorage.getItem("refreshToken");
 
     try {
-        await axios.delete(SERVER_URL, {
-            id: seatId, 
-        },{
+        const response = await axios.delete(SERVER_URL,{
             headers: {
                 "accesstoken": accessToken,
                 "refreshtoken": refreshToken
-            }
+            }, data : { id: seatId }
         });
+        return response;
     } catch(err) {
-        return Promise.reject(err); 
+        // return Promise.reject(err);
+        return err;
     }
 }
 

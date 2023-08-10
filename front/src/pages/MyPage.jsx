@@ -66,10 +66,9 @@ function MyPage() {
 
     const cancelMovie = async (e) => {
         const seatId = e.target.name;
-        console.log(seatId);
         if(window.confirm("예매를 취소하시겠습니까?")) {
-            const response = await cancelMovieApi(`/movies/users/seat`, seatId);
-            if(response.data.success) alert('취소가 완료 되었습니다.');
+            const res = await cancelMovieApi(`/movies/users/seat`, seatId);
+            alert(res.data.msg)
         }
     }
 
@@ -77,10 +76,6 @@ function MyPage() {
         getUserProfile();
         getTicketInfo();
     },[]);
-
-    useEffect(()=>{
-        console.log(ticketInfo);
-    })
 
     return (
         <div>
@@ -122,24 +117,64 @@ function MyPage() {
                 display: "flex",
                 flexDirection: "row",
                 margin: 30,
+                flexWrap: "wrap",
             }}>
-                {ticketInfo.mySeat !== null && ticketInfo.mySeat.map((data, idx) => {
+                {ticketInfo.mySeat != null && ticketInfo.mySeat.map((data) => {
+                    let count = 0;
                     return (
-                        <TicketBox>
-                            <div>{ticketInfo.movie[idx].movie_id === data.movieId ? ticketInfo.movie[idx].movie_title : ticketInfo.movie[idx-1].movie_title}</div>
-                            <div>
-                                <div>날짜 : {data.seatDate.slice(0, 10)}</div>
-                                <div>시간 : {}</div>
+                        <TicketBox key={data.id}>
+                            <TicketTitle>
+                                {ticketInfo.movie.map((movie) => {
+                                    if(data.movieId === movie.movie_id) {
+                                        return (movie.movie_title);
+                                    }
+                                })}
+                            </TicketTitle>
+                            <DateBox>
+                                <div>
+                                    <div>날짜 : {data.seatDate.slice(0, 10) || `날짜 정보 없음`}</div>
+                                    <div>시간 : {ticketInfo.movie.map((movie) => {
+                                        if(data.movieId === movie.movie_id) {
+                                            return (movie.movie_runtime);
+                                        }
+                                        })}
+                                    </div>
+                                </div>
+                                {ticketInfo.movie.map((movie) => {
+                                    if(data.movieId === movie.movie_id) {
+                                        return (
+                                            <PosterImg src={movie.movie_poster} alt="poster" />
+                                        );
+                                    }
+                                })}
+                            </DateBox>
+                            <hr />
+                            <SeatBox>
+                                <div style={{
+                                    paddingRight: 15,
+                                }}>선택좌석 :</div>
+                                <div style={{
+                                    backgroundColor: "rgb(48, 59, 65)",
+                                    color: "#fff",
+                                    padding: 3,
+                                    borderRadius: 5,
+                                }}>{data.seatRow}{data.seatCol}</div>
+                            </SeatBox>
+                            <hr />
+                            <div style={{
+                                width: 220,
+                                height: 100,
+                                textAlign: "center",
+                                backgroundColor: "#999",
+                                marginRight: "auto",
+                            }}>
+                                <img src="" alt="QR코드"/> {/*s3에서 값 QR사진 받아오기*/}
                             </div>
-                            <div>
-                                선택좌석 : <div>{data.seatRow}{data.seatCol}</div>
-                            </div>
-                            <div>
-                                <img src="페이지 하나 만들어" alt="QR코드"/>
-                            </div>
-                            <button name={data.id} onClick={cancelMovie}>예매 취소</button>
+                            <button style={{
+                                width: 220,
+                            }}name={data.id} onClick={cancelMovie}>예매 취소</button>
                         </TicketBox>
-                    )
+                    );
                 })}
             </div>
         </div>
@@ -157,8 +192,36 @@ const Btn = styled.div`
 `;
 
 const TicketBox = styled.div`
-    border: 1px solid #f00;
+    border: 2px solid #f00;
     margin: 30px;
+    padding: 20px;
+    width: 220px;
+    height: auto;
+`;
+
+const TicketTitle = styled.div`
+    margin: 15px;
+    background-color: rgb(48, 59, 65);
+    color: #fff;
+    text-align: center;
+`;
+
+const DateBox = styled.div`
+    margin: 15px;
+    font-size: 13px;
+    display: flex;
+`;
+
+const SeatBox = styled.div`
+    display: flex;
+    margin: 15px;
+`;
+
+const PosterImg = styled.img`
+    width: 70px;
+    height: 90px;
+    background-color: #999;
+    margin-left: auto;
 `;
 
 export default MyPage;

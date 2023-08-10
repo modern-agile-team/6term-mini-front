@@ -9,6 +9,7 @@ const LoadDate = ({ onClickLoadDate }) => {
     ticket: [],
   });
 
+  
   // 영화 예매된 자리 받아오기
   const getMovieSeatApi = async () => {
     const res = await getMovieApi(`/movies/seats`);
@@ -24,8 +25,8 @@ const LoadDate = ({ onClickLoadDate }) => {
       if (Number(data.seatDate) === Number(res)) {
         arr.push(data);
       }
-      onClickLoadDate(arr);
     });
+    onClickLoadDate(arr);
   };
 
   // 오늘부터 +8일 날짜를 불러온다.
