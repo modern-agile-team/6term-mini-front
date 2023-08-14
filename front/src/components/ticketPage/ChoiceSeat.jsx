@@ -18,7 +18,7 @@ const ChoiceSeat = ({ onClickSeat , id, day}) => {
     //이미 예매된 좌석 불러오기
     const getSeatApi = async () => {
         const response = await getMovieApi(`/movies/seats`);
-        const arr = []
+        const temp = []
         const seatApi = [...response.data.seat];
         seatApi.filter((data, idx)=> {
             //가져온 날짜 정보 가공하기
@@ -28,13 +28,12 @@ const ChoiceSeat = ({ onClickSeat , id, day}) => {
             const year = dateObj.getFullYear();
             const month = String(dateObj.getMonth() + 1).padStart(2, "0");
             const days = String(dateObj.getDate()).padStart(2, "0");
-
             const formattedDate = `${year}-${month}-${days}`;
             if(data.movieId == id && formattedDate == day) {
-                arr.push(data);
+                temp.push(data);
             }
         });
-        setSeat(arr);
+        setSeat(temp);
     }
     //좌석 누르면 상위로 State 끌어올리기
     const seatBtn = (e) => {

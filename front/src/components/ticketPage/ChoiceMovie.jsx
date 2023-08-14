@@ -29,6 +29,9 @@ const ChoiceMovie = ({ onClickTitle , date }) => {
         <div style={{
             padding:10,
             backgroundColor:`rgb(238, 237, 237)`,
+            overflow: "scroll",
+            width: 668,
+            height: 305,
         }}>
             {movie !== null && movie.map((data, idx)=>{
                 return (

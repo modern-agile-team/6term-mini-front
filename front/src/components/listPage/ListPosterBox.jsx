@@ -10,7 +10,7 @@ function ListPosterBox(props) {
     }
 
     const likeBtn = async () => {
-        await patchLikeApi(`${props.id}`, props.id);
+        await patchLikeApi(`movies/like/${props.id}`, props.id);
     }
     return (
         <div style={{

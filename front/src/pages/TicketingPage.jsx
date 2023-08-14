@@ -4,6 +4,7 @@ import { Container } from "../components/public/StyledComponent";
 import ChoiceMovie from "../components/ticketPage/ChoiceMovie";
 import ChoiceSeat from "../components/ticketPage/ChoiceSeat";
 import Ticket from "../components/ticketPage/Ticket";
+import LicenseBanner from "../components/public/LincenseBanner";
 
 function TicketingPage(props) {
     const [ getDay, setDay ] = useState(null);

@@ -10,23 +10,33 @@ import MainPage from './pages/MainPage';
 import MyPage from './pages/MyPage';
 import TicketingPage from './pages/TicketingPage';
 import MovieListPage from './pages/MovieListPage';
+import QRCodePage from './pages/QRCodePage';
+import LicenseBanner from './components/public/LincenseBanner';
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
           <Header />
-          <Routes>
-            <Route path='/' element={<StartPage />} />
-            <Route path="/login" element={<LoginPage />}/>
-            <Route path='/findid' element={<FindIdPage />} />
-            <Route path='/findpw' element={<FindPwPage />} />
-            <Route path='/signup' element={<SignUp />} />
-            <Route path='/mainpage' element={<MainPage />} />
-            <Route path='/mypage' element={<MyPage />} />
-            <Route path='/ticketpage' element={<TicketingPage />} />
-            <Route path='/movielist' element={<MovieListPage />} />
-          </Routes>
+          <div style={{
+              height: "auto",
+              minHeight: "100%",
+              paddingBottom: 85,
+            }}>
+            <Routes>
+              <Route path='/' element={<StartPage />} />
+              <Route path="/login" element={<LoginPage />}/>
+              <Route path='/findid' element={<FindIdPage />} />
+              <Route path='/findpw' element={<FindPwPage />} />
+              <Route path='/signup' element={<SignUp />} />
+              <Route path='/mainpage' element={<MainPage />} />
+              <Route path='/mypage' element={<MyPage />} />
+              <Route path='/ticketpage' element={<TicketingPage />} />
+              <Route path='/movielist' element={<MovieListPage />} />
+              <Route path='/qrpage' element={<QRCodePage />} />
+            </Routes>
+          </div>
+          <LicenseBanner />
       </div>
     </BrowserRouter>
   );
