@@ -120,6 +120,15 @@ function MyPage() {
                 flexWrap: "wrap",
             }}>
                 {ticketInfo.mySeat != null && ticketInfo.mySeat.map((data) => {
+                    const modifiedDate = () => {
+                        const days = new Date(data.seatDate);
+                        days.setUTCDate(days.getUTCDate() + 1);
+
+                        const modifiedDate = days.toISOString();
+                        return modifiedDate;
+                    }
+                    const pickDate = modifiedDate();
+
                     return (
                         <TicketBox key={data.id}>
                             <TicketTitle>
@@ -131,7 +140,7 @@ function MyPage() {
                             </TicketTitle>
                             <DateBox>
                                 <div>
-                                    <div>날짜 : {data.seatDate.slice(0, 10) || `날짜 정보 없음`}</div>
+                                    <div>날짜 : {pickDate.slice(0,10)}</div>
                                     <div>시간 : {ticketInfo.movie.map((movie) => {
                                         if(data.movieId === movie.movie_id) {
                                             return (movie.movie_runtime);
