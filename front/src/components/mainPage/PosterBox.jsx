@@ -7,7 +7,12 @@ function PosterBox(props) {
     const navigate = useNavigate();
 
     const ticketingBtn = () => {
-        navigate("/ticketpage");
+        navigate("/ticketpage", {state: {
+            choiceMovieTitle:props.title,
+            choiceMoviePoster:props.poster,
+            choiceMovieRuntime: props.runtime,
+            choiceMovieId: props.id,
+        }});
     };
 
     const handleLikeBtn = async () => {

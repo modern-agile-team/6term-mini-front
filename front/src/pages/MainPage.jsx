@@ -5,12 +5,13 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import SlideBar from "../components/mainPage/SlideBar";
 import LicenseBanner from "../components/public/LincenseBanner";
-import { Container } from "../components/public/StyledComponent";
+import { ButtonUI, Container } from "../components/public/StyledComponent";
 
 function MainPage() {
     const navigate = useNavigate();
     const [ movie, setMovie ] = useState(null);
     const [ isWindow, setIsWindow ] = useState(false);
+
     const showNum = 5;
 
     //영화 정보 받아오기
@@ -22,6 +23,15 @@ function MainPage() {
     //목록 페이지로 이동
     const goToMovieList = () => {
         navigate("/movielist");
+    }
+
+    const goBuy = () => {
+        navigate("/ticketpage", {state: {
+            choiceMoiveTitle: movie[0].movie_title,
+            choiceMoivePoster: movie[0].movie_poster,
+            choiceMoiveRuntime: movie[0].movie_runtime,
+            choiceMovieIdL: movie[0].movie_id,
+        }})
     }
 
     useEffect(()=>{
@@ -43,6 +53,9 @@ function MainPage() {
     return (
         <Container>
             <div>
+                <div style={{textAlign:"center"}}>
+                    <ButtonUI onClick={goBuy}>영화 예매하러 가기</ButtonUI>
+                </div>
                 {isWindow && 
                     <SlideBar />
                 }
@@ -66,7 +79,7 @@ function MainPage() {
                             key={idx}
                             id={data.movie_id}
                             like={data.like_count}
-                            title={data.movie_title} 
+                            title={data.movie_title}
                             poster={data.movie_poster}
                             runtime={data.movie_runtime}
                             />

@@ -45,6 +45,7 @@ const ChoiceSeat = ({ onClickSeat , id, day}) => {
         getSeatApi();
     },[id, day]);
 
+
     return (
         <div style={{
             marginRight: `auto`,

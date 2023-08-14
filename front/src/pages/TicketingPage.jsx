@@ -4,13 +4,14 @@ import { Container } from "../components/public/StyledComponent";
 import ChoiceMovie from "../components/ticketPage/ChoiceMovie";
 import ChoiceSeat from "../components/ticketPage/ChoiceSeat";
 import Ticket from "../components/ticketPage/Ticket";
-import LicenseBanner from "../components/public/LincenseBanner";
+import { useLocation } from "react-router-dom"
 
 function TicketingPage(props) {
     const [ getDay, setDay ] = useState(null);
     const [ getMovieTitle, setMovieTitle ] = useState("");
     const [ getSeatCheck, setSeatCheck ] = useState("");
-
+    const { state } = useLocation();
+    
     //날짜 Handler
     const LoadDateHandler = (data) => {
         setDay(data);
@@ -26,10 +27,17 @@ function TicketingPage(props) {
         setSeatCheck(data);
     };
 
+    useEffect(()=>{
+        window.scrollTo(0, 0);
+    }, [state]);
+
     return (
         <Container margin={100}>
             <LoadDate onClickLoadDate={LoadDateHandler}/>
-            <ChoiceMovie onClickTitle={ChoiceMovieHandler} data={getDay}/>
+            <ChoiceMovie 
+                onClickTitle={ChoiceMovieHandler}
+                choiceMovie={state}
+            />
             <div style={{
                 display:"flex",
                 width: 650,
@@ -40,14 +48,14 @@ function TicketingPage(props) {
                 <ChoiceSeat 
                     onClickSeat={ChoiceSeatHandler}
                     day={getDay !== null && getDay[0]}
-                    id={getMovieTitle.movie_id}
+                    id={getMovieTitle.movie_id ? getMovieTitle.movie_id : state.choiceMovieId}
                 />
                 <Ticket
                     id = {getMovieTitle.movie_id}
                     day={getDay !== null && getDay[0]} 
-                    title={getMovieTitle.movie_title}
-                    poster={getMovieTitle.movie_poster}
-                    runtime={getMovieTitle.movie_runtime}
+                    title={getMovieTitle.movie_title !== undefined ? getMovieTitle.movie_title : state.choiceMovieTitle}
+                    poster={getMovieTitle.movie_poster !== undefined ? getMovieTitle.movie_poster : state.choiceMoviePoster}
+                    runtime={getMovieTitle.movie_runtime !== undefined ? getMovieTitle.movie_runtime : state.choiceMovieRuntime}
                     seat={getSeatCheck}
                 />
             </div>

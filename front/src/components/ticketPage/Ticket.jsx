@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import reservationApi from "../../api/reservationApi";
 import { useNavigate } from "react-router";
-import { useEffect } from "react";
 
 const Ticket = (props) => {
     const navigate = useNavigate();
     //좌석 정보 행 열로 쪼개기
     const seatLocation = String(props.seat).split("");
+    console.log(props.title, props.poster, props.runtime);
 
     //예매 완료 버튼 클릭
     const postTicket = async () => {
@@ -28,6 +28,18 @@ const Ticket = (props) => {
         }
     }
 
+    //시간 표시
+    const showTime = (index) => {
+        if (index === 0) return "07:00 ~ 09:00";
+        if (index === 1) return "09:00 ~ 11:00";
+        if (index === 2) return "11:00 ~ 13:00";
+        if (index === 3) return "13:00 ~ 15:00";
+        if (index === 4) return "15:00 ~ 17:00";
+        if (index === 5) return "17:00 ~ 19:00";
+        if (index === 6) return "19:00 ~ 21:00";
+        if (index === 7) return "21:00 ~ 23:00";
+    }
+
     return (
         <div style={{
             marginLeft: `auto`,
@@ -46,7 +58,8 @@ const Ticket = (props) => {
             }}>
                 <div>
                     <div>{props.day === undefined ? "날짜" : props.day}</div>
-                    <div>{props.runtime === undefined ? "시간" : props.runtime}</div>
+                    <div>{props.runtime === undefined ? "시간" : showTime(props.id-1)}</div>
+                    <div>{props.runtime === undefined ? "런타임" : props.runtime}</div>
                 </div>
                 <img
                     style={{
