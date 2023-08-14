@@ -11,7 +11,7 @@ function PosterBox(props) {
     };
 
     const handleLikeBtn = async () => {
-        const response = await patchLikeApi(`${props.id}`, props.id);
+        await patchLikeApi(`/movies/like/${props.id}`);
     }
 
 

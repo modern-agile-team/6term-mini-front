@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import getProfileApi from "../api/getProfileApi";
 import logOutApi from "../api/logOutApi";
 import styled from "styled-components";
-import { getMovieApi } from "../api/getMovieApi";
+import {getMovieApi} from "../api/getMovieApi";
 import cancelMovieApi from "../api/cancelMovieApi";
 
 function MyPage() {
@@ -30,7 +30,7 @@ function MyPage() {
 
     //프로필 정보 가지고 오기(페이지 로드시)
     const getUserProfile = async () => {
-        const res = await getProfileApi(`profile`);
+        const res = await getProfileApi(`/auth/users/profile`);
         setUserInfo(()=>{
             return {
                 id: res.data.loginId,

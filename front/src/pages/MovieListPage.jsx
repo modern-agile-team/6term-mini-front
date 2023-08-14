@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ListPosterBox from "../components/listPage/ListPosterBox";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { getMovieApi } from "../api/getMovieApi";
+import  {getMovieApi}  from "../api/getMovieApi";
 import LicenseBanner from "../components/public/LincenseBanner";
 
 function MovieListPage() {
@@ -49,9 +49,7 @@ function MovieListPage() {
                             />
                         );
                     })}
-                {/* <ListPosterBox /> */}
             </div>
-            <LicenseBanner />
         </div>
     );
 }
