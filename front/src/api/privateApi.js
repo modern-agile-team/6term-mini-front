@@ -47,7 +47,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
     (response) => {
         if (response.status === 404) {
-        console.log('404 페이지로 넘어가야 함!');
+        console.log('404 페이지로');
         }
     
         return response;

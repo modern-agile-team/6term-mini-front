@@ -120,7 +120,6 @@ function MyPage() {
                 flexWrap: "wrap",
             }}>
                 {ticketInfo.mySeat != null && ticketInfo.mySeat.map((data) => {
-                    let count = 0;
                     return (
                         <TicketBox key={data.id}>
                             <TicketTitle>

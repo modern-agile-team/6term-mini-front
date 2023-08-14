@@ -8,11 +8,11 @@ function PosterBox(props) {
 
     const ticketingBtn = () => {
         navigate("/ticketpage");
-    }
+    };
 
     const likeBtn = async () => {
         await patchLikeApi(`${props.id}`, props.id);
-    }
+    };
 
     return (
         <div style={{
