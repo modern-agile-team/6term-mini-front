@@ -10,9 +10,10 @@ function PosterBox(props) {
         navigate("/ticketpage");
     };
 
-    const likeBtn = async () => {
-        await patchLikeApi(`${props.id}`, props.id);
-    };
+    const handleLikeBtn = async () => {
+        const response = await patchLikeApi(`${props.id}`, props.id);
+    }
+
 
     return (
         <div style={{
@@ -33,7 +34,7 @@ function PosterBox(props) {
                 display:"flex",
                 flexDirection: "row",
             }}>
-                <LikeBtn onClick={likeBtn}>❤{props.like}</LikeBtn>
+                <LikeBtn onClick={handleLikeBtn}>❤{props.like}</LikeBtn>
 
                 <Button onClick={ticketingBtn}>예매하기</Button>
             </div>
