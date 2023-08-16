@@ -11,9 +11,8 @@ function TicketingPage() {
     const [ getMovieTitle, setMovieTitle ] = useState("");
     const [ getSeatCheck, setSeatCheck ] = useState("");
     const { state } = useLocation();
-
-    console.log(getMovieTitle);
     //날짜 Handler
+    
     const LoadDateHandler = (data) => {
         setDay(data);
     };
@@ -31,6 +30,7 @@ function TicketingPage() {
     //페이지 들어왔을 때, 페이지 상단으로 이동
     useEffect(()=>{
         window.scrollTo(0, 0);
+        setMovieTitle(state);
     }, [state]);
 
     return (
@@ -53,27 +53,11 @@ function TicketingPage() {
                     id={getMovieTitle.movie_id}
                 />
                 <Ticket
-                    id = {
-                        state.choiceMovieId !== null ?
-                        state.choiceMovieId :
-                        getMovieTitle.movie_id
-                    }
+                    id = {getMovieTitle.movie_id}
                     day={getDay !== null && getDay[0]} 
-                    title={
-                        state.choiceMovieTitle !== null ? 
-                        state.choiceMovieTitle :
-                        getMovieTitle.movie_title
-                    }
-                    poster={
-                        state.choiceMoviePoster !== null ?
-                        state.choiceMoviePoster :
-                        getMovieTitle.movie_poster
-                    }
-                    runtime={
-                        state.choiceMovieRuntime !== null ?
-                        state.choiceMovieRuntime :
-                        getMovieTitle.movie_runtime
-                    }
+                    title={getMovieTitle.movie_title}
+                    poster={getMovieTitle.movie_poster}
+                    runtime={getMovieTitle.movie_runtime}
                     seat={getSeatCheck}
                 />
             </div>

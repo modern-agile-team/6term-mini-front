@@ -8,7 +8,12 @@ function ListPosterBox(props) {
     const [ countLike, setCountLike ] = useState(props.like);
 
     const handleTicketing = () => {
-        navigate("/ticketpage");
+        navigate("/ticketpage", {state: {
+            movie_title:props.title,
+            movie_poster:props.poster,
+            movie_runtime: props.runtime,
+            movie_id: props.id,
+        }});
     };
 
     const handleLikeBtn = async () => {

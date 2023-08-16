@@ -9,10 +9,10 @@ function PosterBox(props) {
 
     const handleTicketing = () => {
         navigate("/ticketpage", {state: {
-            choiceMovieTitle:props.title,
-            choiceMoviePoster:props.poster,
-            choiceMovieRuntime: props.runtime,
-            choiceMovieId: props.id,
+            movie_title:props.title,
+            movie_poster:props.poster,
+            movie_runtime: props.runtime,
+            movie_id: props.id,
         }});
     };
 
