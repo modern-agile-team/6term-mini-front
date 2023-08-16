@@ -2,10 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Slide from './Slide';
 
-const TOTAL_SLIDES = 6; // 전체 슬라이드 개수(총3개. 배열로 계산)
+const TOTAL_SLIDES = 3; // 전체 슬라이드 개수(총3개. 배열로 계산)
 
 export default function SlideBar() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [autoSlide, setAutoSlide] = useState(true); // 자동 슬라이드 상태
+  const [stopAutoSlide, setStopAutoSlide] = useState(false); // 자동 슬라이드 멈춤 상태
   const slideRef = useRef(null);
 
   // Next 버튼 클릭 시
@@ -26,17 +28,38 @@ export default function SlideBar() {
     }
   };
 
+  //비디오 재생
+  const handleStartAutoSlide = () => {
+    setAutoSlide(true);
+    setStopAutoSlide(false);
+  };
+
+  //비디오 정지
+  const handleStopAutoSlide = () => {
+    setAutoSlide(false);
+    setStopAutoSlide(true);
+  };
+
   useEffect(() => {
     slideRef.current.style.transition = 'all 0.5s ease-in-out';
     slideRef.current.style.transform = `translateX(-${currentSlide}00%)`; // 백틱을 사용하여 슬라이드로 이동하는 에니메이션을 만듭니다.
-  }, [currentSlide]);
+    let intervalId;
+
+    if (autoSlide && !stopAutoSlide) {
+      intervalId = setInterval(() => {
+        setCurrentSlide((prevSlide) => (prevSlide + 1) % TOTAL_SLIDES);
+      }, 5000); // 5초마다 슬라이드 전환
+    }
+
+    // 자동 슬라이드 멈춤 시 clearInterval
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [autoSlide, stopAutoSlide, currentSlide]);
 
   return (
     <Container>
         <SliderContainer ref={slideRef}>
-            {/* <div>
-                <Slide url={"https://ma6-mini-poster.s3.ap-northeast-2.amazonaws.com/%E1%84%8B%E1%85%B2%E1%84%90%E1%85%AE%E1%84%87%E1%85%B3+%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%B3%E1%84%85%E1%85%A9+%E1%84%8B%E1%85%A7%E1%86%BC%E1%84%89%E1%85%A1%E1%86%BC.mp4"} />
-            </div> */}
             <div>
               <Slide url={"https://youtu.be/grxS6XTylX0"} />
             </div>
@@ -49,7 +72,7 @@ export default function SlideBar() {
             <div>
                 <Slide url={"https://youtu.be/BOqFRHCrN-k"} />
             </div>
-            <div>
+            {/* <div>
               <Slide url={"https://youtu.be/XyHr-s3MfCQ"} />
             </div>
             <div>
@@ -57,10 +80,15 @@ export default function SlideBar() {
             </div>
             <div>
               <Slide url={"https://youtu.be/9V2tVurYTxc"} />
-            </div>
+            </div> */}
         </SliderContainer>
       <Center>
         <Button onClick={handleSlidePrev}>&lt;</Button>
+        {autoSlide ? (
+          <Button onClick={handleStopAutoSlide}>■</Button>
+        ) : (
+          <Button onClick={handleStartAutoSlide}>▶</Button>
+        )}
         <Button onClick={handleSlideNext}>&gt;</Button>
       </Center>
     </Container>

@@ -106,9 +106,9 @@ function MyPage() {
                 <div style={{
                     marginLeft: "auto",
                 }}>
-                    <Btn bgColor={`rgb(224, 224, 224)`} onClick={goToMovieBtn}>영화 목록 보러가기</Btn>
-                    <Btn bgColor={`rgb(224, 224, 224)`} onClick={logOutBtn}>로그아웃</Btn>
-                    <Btn bgColor={`rgb(224, 224, 224)`} onClick={deleteAccountBtn}>회원탈퇴</Btn>
+                    <Btn onClick={goToMovieBtn}>영화 목록 보러가기</Btn>
+                    <Btn onClick={logOutBtn}>로그아웃</Btn>
+                    <Btn onClick={deleteAccountBtn}>회원탈퇴</Btn>
                 </div>
             </div>
             <div style={{
@@ -201,7 +201,7 @@ function MyPage() {
 }
 
 const Btn = styled.div`
-    background-color: rgb(224, 224, 224);
+    background-color: rgb(210, 210, 210);
     cursor: pointer;
     margin: 10px;
     &:hover {

@@ -26,7 +26,7 @@ function MainPage() {
 
     //티케팅 페이지로 이동
     const goBuy = () => {
-        navigate("/ticketpage");
+        navigate("/ticketpage", {state: {}});
     }
 
     useEffect(()=>{
@@ -48,12 +48,12 @@ function MainPage() {
     return (
         <Container>
             <div>
-                <div style={{textAlign:"center"}}>
-                    <ButtonUI onClick={goBuy}>영화 예매하러 가기</ButtonUI>
-                </div>
                 {isWindow && 
                     <SlideBar />
                 }
+                <div style={{textAlign:"center"}}>
+                    <ButtonUI onClick={goBuy}>영화 예매하러 가기</ButtonUI>
+                </div>
                 <div style={{
                     textAlign: "end",
                     marginRight: 50,

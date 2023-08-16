@@ -6,12 +6,13 @@ import ChoiceSeat from "../components/ticketPage/ChoiceSeat";
 import Ticket from "../components/ticketPage/Ticket";
 import { useLocation } from "react-router-dom"
 
-function TicketingPage(props) {
+function TicketingPage() {
     const [ getDay, setDay ] = useState(null);
     const [ getMovieTitle, setMovieTitle ] = useState("");
     const [ getSeatCheck, setSeatCheck ] = useState("");
     const { state } = useLocation();
-    
+
+    console.log(getMovieTitle);
     //날짜 Handler
     const LoadDateHandler = (data) => {
         setDay(data);
@@ -27,6 +28,7 @@ function TicketingPage(props) {
         setSeatCheck(data);
     };
 
+    //페이지 들어왔을 때, 페이지 상단으로 이동
     useEffect(()=>{
         window.scrollTo(0, 0);
     }, [state]);
@@ -51,11 +53,27 @@ function TicketingPage(props) {
                     id={getMovieTitle.movie_id}
                 />
                 <Ticket
-                    id = {getMovieTitle.movie_id}
+                    id = {
+                        state.choiceMovieId !== null ?
+                        state.choiceMovieId :
+                        getMovieTitle.movie_id
+                    }
                     day={getDay !== null && getDay[0]} 
-                    title={getMovieTitle.movie_titl}
-                    poster={getMovieTitle.movie_poster}
-                    runtime={getMovieTitle.movie_runtime}
+                    title={
+                        state.choiceMovieTitle !== null ? 
+                        state.choiceMovieTitle :
+                        getMovieTitle.movie_title
+                    }
+                    poster={
+                        state.choiceMoviePoster !== null ?
+                        state.choiceMoviePoster :
+                        getMovieTitle.movie_poster
+                    }
+                    runtime={
+                        state.choiceMovieRuntime !== null ?
+                        state.choiceMovieRuntime :
+                        getMovieTitle.movie_runtime
+                    }
                     seat={getSeatCheck}
                 />
             </div>

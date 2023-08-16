@@ -43,7 +43,6 @@ const reNewToken = async () => {
 //요청 전 인터셉터
 instance.interceptors.request.use(
     (config) => {
-        // console.log(config);
         const accessToken = getAccessToken();
         const refreshToken = getRefreshToken();
 
@@ -54,7 +53,6 @@ instance.interceptors.request.use(
         return config;
     },
     (error) => {
-        // console.log(error);
         return Promise.reject(error);
     }
 );
@@ -82,8 +80,8 @@ instance.interceptors.response.use(
             const response = await axios.request(error.config);
         return response;
         }
-        // return Promise.reject(error);
-        return error;
+        return Promise.reject(error);
+        // return error;
     }
 );
 
