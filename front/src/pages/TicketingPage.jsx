@@ -48,14 +48,14 @@ function TicketingPage(props) {
                 <ChoiceSeat 
                     onClickSeat={ChoiceSeatHandler}
                     day={getDay !== null && getDay[0]}
-                    id={getMovieTitle.movie_id ? getMovieTitle.movie_id : state.choiceMovieId}
+                    id={getMovieTitle.movie_id}
                 />
                 <Ticket
                     id = {getMovieTitle.movie_id}
                     day={getDay !== null && getDay[0]} 
-                    title={getMovieTitle.movie_title !== undefined ? getMovieTitle.movie_title : state.choiceMovieTitle}
-                    poster={getMovieTitle.movie_poster !== undefined ? getMovieTitle.movie_poster : state.choiceMoviePoster}
-                    runtime={getMovieTitle.movie_runtime !== undefined ? getMovieTitle.movie_runtime : state.choiceMovieRuntime}
+                    title={getMovieTitle.movie_titl}
+                    poster={getMovieTitle.movie_poster}
+                    runtime={getMovieTitle.movie_runtime}
                     seat={getSeatCheck}
                 />
             </div>

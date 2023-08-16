@@ -9,7 +9,7 @@ export default function SlideBar() {
   const slideRef = useRef(null);
 
   // Next 버튼 클릭 시
-  const NextSlide = () => {
+  const handleSlideNext = () => {
     if (currentSlide >= TOTAL_SLIDES) {
       // 더 이상 넘어갈 슬라이드가 없으면
       setCurrentSlide(0); // 1번째 사진으로 넘어감
@@ -18,7 +18,7 @@ export default function SlideBar() {
     }
   };
   // Prev 버튼 클릭 시
-  const PrevSlide = () => {
+  const handleSlidePrev = () => {
     if (currentSlide === 0) {
       setCurrentSlide(TOTAL_SLIDES); // 마지막 사진으로 넘어감
     } else {
@@ -45,8 +45,8 @@ export default function SlideBar() {
             </div>
         </SliderContainer>
       <Center>
-        <Button onClick={PrevSlide}>&lt;</Button>
-        <Button onClick={NextSlide}>&gt;</Button>
+        <Button onClick={handleSlidePrev}>&lt;</Button>
+        <Button onClick={handleSlideNext}>&gt;</Button>
       </Center>
     </Container>
   );

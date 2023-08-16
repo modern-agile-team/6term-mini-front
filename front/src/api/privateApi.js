@@ -24,7 +24,7 @@ const isTokenExpired = async () => {
         });
         return success;
     } catch(err) {
-        return err;
+        return err.response.data.success;
     }
 }
 
@@ -42,16 +42,18 @@ const reNewToken = async () => {
 //요청 전 인터셉터
 instance.interceptors.request.use(
     (config) => {
+        // console.log(config);
         const accessToken = getAccessToken();
         const refreshToken = getRefreshToken();
 
+        config.headers["Content-Type"] = "application/json";
         config.headers['accesstoken'] = accessToken;
         config.headers['refreshtoken'] = refreshToken;
 
         return config;
     },
     (error) => {
-        console.log(error);
+        // console.log(error);
         return Promise.reject(error);
     }
 );
@@ -59,6 +61,7 @@ instance.interceptors.request.use(
 //요청 후 인터셉터
 instance.interceptors.response.use(
     (response) => {
+        // console.log(response);
         if (response.status === 404) {
             console.log('404 error');
         }
@@ -66,6 +69,7 @@ instance.interceptors.response.use(
         return response;
     },
     async (error) => {
+        console.log(error);
         if (error.response?.status === 401) {
             if (isTokenExpired()) await reNewToken();
         

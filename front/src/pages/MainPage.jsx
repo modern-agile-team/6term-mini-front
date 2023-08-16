@@ -40,7 +40,7 @@ function MainPage() {
     
     useEffect(()=>{
         getMovieTitle();
-    }, [movie]);
+    }, []);
 
     //되돌아가기 막기
     useEffect(()=>{

@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import patchLikeApi from "../../api/patchLikeApi";
 
 function PosterBox(props) {
     const navigate = useNavigate();
+    const [ countLike, setCountLike ] = useState(props.like);
 
-    const ticketingBtn = () => {
+    const handleTicketing = () => {
         navigate("/ticketpage", {state: {
             choiceMovieTitle:props.title,
             choiceMoviePoster:props.poster,
@@ -16,9 +17,9 @@ function PosterBox(props) {
     };
 
     const handleLikeBtn = async () => {
-        await patchLikeApi(`/movies/like/${props.id}`);
-    }
-
+        const response = await patchLikeApi(`/movies/like/${props.id}`);
+        response.data.state ? setCountLike(countLike + 1) : setCountLike(countLike - 1); 
+    };
 
     return (
         <div style={{
@@ -39,9 +40,9 @@ function PosterBox(props) {
                 display:"flex",
                 flexDirection: "row",
             }}>
-                <LikeBtn onClick={handleLikeBtn}>❤{props.like}</LikeBtn>
+                <LikeBtn onClick={handleLikeBtn}>❤{countLike}</LikeBtn>
 
-                <Button onClick={ticketingBtn}>예매하기</Button>
+                <Button onClick={handleTicketing}>예매하기</Button>
             </div>
         </div>
     );

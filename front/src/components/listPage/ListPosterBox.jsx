@@ -1,17 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import patchLikeApi from "../../api/patchLikeApi";
+import { useState } from "react";
 
 function ListPosterBox(props) {
     const navigate = useNavigate();
+    const [ countLike, setCountLike ] = useState(props.like);
 
-    const ticketingBtn = () => {
+    const handleTicketing = () => {
         navigate("/ticketpage");
-    }
+    };
 
-    const likeBtn = async () => {
-        await patchLikeApi(`movies/like/${props.id}`, props.id);
-    }
+    const handleLikeBtn = async () => {
+        const response = await patchLikeApi(`movies/like/${props.id}`, props.id);
+        response.data.state ? setCountLike(countLike + 1) : setCountLike(countLike -1);
+    };
     return (
         <div style={{
             margin: 20,
@@ -27,8 +30,8 @@ function ListPosterBox(props) {
                 }}>영화 제목 : {props.title}</div>
                 <div>런닝 타임 : {props.runtime}</div>
             <FlexBox>
-                <LikeBtn onClick={likeBtn}>❤{props.like}</LikeBtn>
-                <Button onClick={ticketingBtn}>예매하기</Button>
+                <LikeBtn onClick={handleLikeBtn}>❤{countLike}</LikeBtn>
+                <Button onClick={handleTicketing}>예매하기</Button>
             </FlexBox>
         </div>
     );
