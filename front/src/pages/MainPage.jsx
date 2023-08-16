@@ -7,12 +7,11 @@ import SlideBar from "../components/mainPage/SlideBar";
 import LicenseBanner from "../components/public/LincenseBanner";
 import { ButtonUI, Container } from "../components/public/StyledComponent";
 
+const showNum = 5;  //영화를 5개만 보여줌
 function MainPage() {
     const navigate = useNavigate();
     const [ movie, setMovie ] = useState(null);
     const [ isWindow, setIsWindow ] = useState(false);
-
-    const showNum = 5;
 
     //영화 정보 받아오기
     const getMovieTitle = async () => {
@@ -25,13 +24,9 @@ function MainPage() {
         navigate("/movielist");
     }
 
+    //티케팅 페이지로 이동
     const goBuy = () => {
-        navigate("/ticketpage", {state: {
-            choiceMoiveTitle: movie[0].movie_title,
-            choiceMoivePoster: movie[0].movie_poster,
-            choiceMoiveRuntime: movie[0].movie_runtime,
-            choiceMovieIdL: movie[0].movie_id,
-        }})
+        navigate("/ticketpage");
     }
 
     useEffect(()=>{

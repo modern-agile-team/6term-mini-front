@@ -77,6 +77,7 @@ background-size: cover;
 background-color: #999;
 display: flex;
 flex-direction: column;
+box-shadow: 0px 0px 15px 8px #999;
 `;
 
 

@@ -65,12 +65,14 @@ function MyPage() {
         }
     }
 
+    //예메취소
     const cancelMovie = async (e) => {
         const seatId = e.target.name;
         if(window.confirm("예매를 취소하시겠습니까?")) {
             const res = await cancelMovieApi(`/movies/users/seat`, seatId);
             alert(res.data.msg)
         }
+        window.location.reload();
     };
 
     useEffect(()=>{
@@ -209,7 +211,8 @@ const Btn = styled.div`
 `;
 
 const TicketBox = styled.div`
-    border: 2px solid #f00;
+    /* border: 2px solid #999; */
+    box-shadow: 0px 2px 4px 2px #999;
     margin: 30px;
     padding: 20px;
     width: 220px;

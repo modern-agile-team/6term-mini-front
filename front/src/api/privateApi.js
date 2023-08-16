@@ -33,6 +33,7 @@ const reNewToken = async () => {
     const refreshToken = localStorage.getItem('refreshToken');
     const response = await instance.post(`auth/token`, {
         headers: {
+            'Content-Type': 'application/json',
             refreshtoken: refreshToken,
         }
     });
@@ -61,16 +62,13 @@ instance.interceptors.request.use(
 //요청 후 인터셉터
 instance.interceptors.response.use(
     (response) => {
-        // console.log(response);
         if (response.status === 404) {
             console.log('404 error');
         }
-    
         return response;
     },
     async (error) => {
-        console.log(error);
-        if (error.response?.status === 401) {
+        if (error.response.status === 401) {
             if (isTokenExpired()) await reNewToken();
         
             const accessToken = getAccessToken();
@@ -84,7 +82,8 @@ instance.interceptors.response.use(
             const response = await axios.request(error.config);
         return response;
         }
-        return Promise.reject(error);
+        // return Promise.reject(error);
+        return error;
     }
 );
 

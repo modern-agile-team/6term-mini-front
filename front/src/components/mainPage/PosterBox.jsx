@@ -83,7 +83,7 @@ background-size: cover;
 background-color: #999;
 display: flex;
 flex-direction: column;
-border: 2px solid #000;
+box-shadow: 0px 0px 15px 8px #999;
 `;
 
 

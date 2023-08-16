@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Slide from './Slide';
 
-const TOTAL_SLIDES = 2; // 전체 슬라이드 개수(총3개. 배열로 계산)
+const TOTAL_SLIDES = 6; // 전체 슬라이드 개수(총3개. 배열로 계산)
 
 export default function SlideBar() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -34,14 +34,29 @@ export default function SlideBar() {
   return (
     <Container>
         <SliderContainer ref={slideRef}>
-            <div>
+            {/* <div>
                 <Slide url={"https://ma6-mini-poster.s3.ap-northeast-2.amazonaws.com/%E1%84%8B%E1%85%B2%E1%84%90%E1%85%AE%E1%84%87%E1%85%B3+%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%B3%E1%84%85%E1%85%A9+%E1%84%8B%E1%85%A7%E1%86%BC%E1%84%89%E1%85%A1%E1%86%BC.mp4"} />
+            </div> */}
+            <div>
+              <Slide url={"https://youtu.be/grxS6XTylX0"} />
             </div>
             <div>
                 <Slide url={"https://www.youtube.com/embed/Y3abEKHEkGQ"} />
             </div>
             <div>
-                <Slide url={"https://www.youtube.com/embed/UTPEPu2Je9g"} />
+                <Slide url={"https://youtu.be/x3qkKWoJYbU"} />
+            </div>
+            <div>
+                <Slide url={"https://youtu.be/BOqFRHCrN-k"} />
+            </div>
+            <div>
+              <Slide url={"https://youtu.be/XyHr-s3MfCQ"} />
+            </div>
+            <div>
+              <Slide url={"https://youtu.be/oSqK_v6zPoM"} />
+            </div>
+            <div>
+              <Slide url={"https://youtu.be/9V2tVurYTxc"} />
             </div>
         </SliderContainer>
       <Center>
@@ -54,7 +69,7 @@ export default function SlideBar() {
 const Container = styled.div`
   width: 1200px;
   margin: auto;
-  height: 480px;
+  height: 780px;
   overflow: hidden; // 선을 넘어간 이미지들은 숨김.
 `;
 const Button = styled.div`

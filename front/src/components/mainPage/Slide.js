@@ -8,5 +8,6 @@ export default function Slide({ url }) {
             loop
             playing={true}
             width={1200}
+            height={680}
         />;
 }
