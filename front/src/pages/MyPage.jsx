@@ -5,6 +5,7 @@ import logOutApi from "../api/logOutApi";
 import styled from "styled-components";
 import {getMovieApi} from "../api/getMovieApi";
 import cancelMovieApi from "../api/cancelMovieApi";
+import { getShowTime } from "../utils/getShowTime";
 
 function MyPage() {
     const navigate = useNavigate();
@@ -64,13 +65,15 @@ function MyPage() {
         }
     }
 
+    //예메취소
     const cancelMovie = async (e) => {
         const seatId = e.target.name;
         if(window.confirm("예매를 취소하시겠습니까?")) {
             const res = await cancelMovieApi(`/movies/users/seat`, seatId);
             alert(res.data.msg)
         }
-    }
+        window.location.reload();
+    };
 
     useEffect(()=>{
         getUserProfile();
@@ -103,9 +106,9 @@ function MyPage() {
                 <div style={{
                     marginLeft: "auto",
                 }}>
-                    <Btn bgColor={`rgb(224, 224, 224)`} onClick={goToMovieBtn}>영화 목록 보러가기</Btn>
-                    <Btn bgColor={`rgb(224, 224, 224)`} onClick={logOutBtn}>로그아웃</Btn>
-                    <Btn bgColor={`rgb(224, 224, 224)`} onClick={deleteAccountBtn}>회원탈퇴</Btn>
+                    <Btn onClick={goToMovieBtn}>영화 목록 보러가기</Btn>
+                    <Btn onClick={logOutBtn}>로그아웃</Btn>
+                    <Btn onClick={deleteAccountBtn}>회원탈퇴</Btn>
                 </div>
             </div>
             <div style={{
@@ -118,6 +121,9 @@ function MyPage() {
                 flexDirection: "row",
                 margin: 30,
                 flexWrap: "wrap",
+                height: "auto",
+                minHeight: "100%",
+                paddingBottom: 85,
             }}>
                 {ticketInfo.mySeat != null && ticketInfo.mySeat.map((data) => {
                     const modifiedDate = () => {
@@ -140,8 +146,13 @@ function MyPage() {
                             </TicketTitle>
                             <DateBox>
                                 <div>
-                                    <div>날짜 : {pickDate.slice(0,10)}</div>
-                                    <div>시간 : {ticketInfo.movie.map((movie) => {
+                                    <div>{pickDate.slice(0,10)}</div>
+                                    <div>{ticketInfo.movie.map((movie, idx) => {
+                                        if(data.movieId === movie.movie_id) {
+                                            return getShowTime(idx);
+                                        }
+                                    })}</div>
+                                    <div>런타임 : {ticketInfo.movie.map((movie) => {
                                         if(data.movieId === movie.movie_id) {
                                             return (movie.movie_runtime);
                                         }
@@ -190,7 +201,7 @@ function MyPage() {
 }
 
 const Btn = styled.div`
-    background-color: rgb(224, 224, 224);
+    background-color: rgb(210, 210, 210);
     cursor: pointer;
     margin: 10px;
     &:hover {
@@ -200,11 +211,12 @@ const Btn = styled.div`
 `;
 
 const TicketBox = styled.div`
-    border: 2px solid #f00;
+    /* border: 2px solid #999; */
+    box-shadow: 0px 2px 4px 2px #999;
     margin: 30px;
     padding: 20px;
     width: 220px;
-    height: auto;
+    height: 340px;
 `;
 
 const TicketTitle = styled.div`

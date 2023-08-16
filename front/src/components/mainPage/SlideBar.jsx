@@ -1,18 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Slide from './Slide';
-import { ButtonUI } from '../public/StyledComponent';
-import { useNavigate } from 'react-router-dom';
 
-const TOTAL_SLIDES = 2; // 전체 슬라이드 개수(총3개. 배열로 계산)
+const TOTAL_SLIDES = 3; // 전체 슬라이드 개수(총3개. 배열로 계산)
 
 export default function SlideBar() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [autoSlide, setAutoSlide] = useState(true); // 자동 슬라이드 상태
+  const [stopAutoSlide, setStopAutoSlide] = useState(false); // 자동 슬라이드 멈춤 상태
   const slideRef = useRef(null);
-  const navigate = useNavigate();
 
   // Next 버튼 클릭 시
-  const NextSlide = () => {
+  const handleSlideNext = () => {
     if (currentSlide >= TOTAL_SLIDES) {
       // 더 이상 넘어갈 슬라이드가 없으면
       setCurrentSlide(0); // 1번째 사진으로 넘어감
@@ -21,7 +20,7 @@ export default function SlideBar() {
     }
   };
   // Prev 버튼 클릭 시
-  const PrevSlide = () => {
+  const handleSlidePrev = () => {
     if (currentSlide === 0) {
       setCurrentSlide(TOTAL_SLIDES); // 마지막 사진으로 넘어감
     } else {
@@ -29,34 +28,68 @@ export default function SlideBar() {
     }
   };
 
-  const goBuy = () => {
-    navigate("/ticketpage")
-  }
+  //비디오 재생
+  const handleStartAutoSlide = () => {
+    setAutoSlide(true);
+    setStopAutoSlide(false);
+  };
+
+  //비디오 정지
+  const handleStopAutoSlide = () => {
+    setAutoSlide(false);
+    setStopAutoSlide(true);
+  };
 
   useEffect(() => {
     slideRef.current.style.transition = 'all 0.5s ease-in-out';
     slideRef.current.style.transform = `translateX(-${currentSlide}00%)`; // 백틱을 사용하여 슬라이드로 이동하는 에니메이션을 만듭니다.
-  }, [currentSlide]);
+    let intervalId;
+
+    if (autoSlide && !stopAutoSlide) {
+      intervalId = setInterval(() => {
+        setCurrentSlide((prevSlide) => (prevSlide + 1) % TOTAL_SLIDES);
+      }, 5000); // 5초마다 슬라이드 전환
+    }
+
+    // 자동 슬라이드 멈춤 시 clearInterval
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [autoSlide, stopAutoSlide, currentSlide]);
 
   return (
     <Container>
-        <div style={{textAlign:"center"}}>
-            <ButtonUI onClick={goBuy}>영화 예매하러 가기</ButtonUI>
-        </div>
         <SliderContainer ref={slideRef}>
             <div>
-                <Slide url={"https://ma6-mini-poster.s3.ap-northeast-2.amazonaws.com/%E1%84%8B%E1%85%B2%E1%84%90%E1%85%AE%E1%84%87%E1%85%B3+%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%B3%E1%84%85%E1%85%A9+%E1%84%8B%E1%85%A7%E1%86%BC%E1%84%89%E1%85%A1%E1%86%BC.mp4"} />
+              <Slide url={"https://youtu.be/grxS6XTylX0"} />
             </div>
             <div>
                 <Slide url={"https://www.youtube.com/embed/Y3abEKHEkGQ"} />
             </div>
             <div>
-                <Slide url={"https://www.youtube.com/embed/UTPEPu2Je9g"} />
+                <Slide url={"https://youtu.be/x3qkKWoJYbU"} />
             </div>
+            <div>
+                <Slide url={"https://youtu.be/BOqFRHCrN-k"} />
+            </div>
+            {/* <div>
+              <Slide url={"https://youtu.be/XyHr-s3MfCQ"} />
+            </div>
+            <div>
+              <Slide url={"https://youtu.be/oSqK_v6zPoM"} />
+            </div>
+            <div>
+              <Slide url={"https://youtu.be/9V2tVurYTxc"} />
+            </div> */}
         </SliderContainer>
       <Center>
-        <Button onClick={PrevSlide}>&lt;</Button>
-        <Button onClick={NextSlide}>&gt;</Button>
+        <Button onClick={handleSlidePrev}>&lt;</Button>
+        {autoSlide ? (
+          <Button onClick={handleStopAutoSlide}>■</Button>
+        ) : (
+          <Button onClick={handleStartAutoSlide}>▶</Button>
+        )}
+        <Button onClick={handleSlideNext}>&gt;</Button>
       </Center>
     </Container>
   );
@@ -64,7 +97,7 @@ export default function SlideBar() {
 const Container = styled.div`
   width: 1200px;
   margin: auto;
-  height: 480px;
+  height: 780px;
   overflow: hidden; // 선을 넘어간 이미지들은 숨김.
 `;
 const Button = styled.div`

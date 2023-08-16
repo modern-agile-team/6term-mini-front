@@ -4,14 +4,15 @@ import { Container } from "../components/public/StyledComponent";
 import ChoiceMovie from "../components/ticketPage/ChoiceMovie";
 import ChoiceSeat from "../components/ticketPage/ChoiceSeat";
 import Ticket from "../components/ticketPage/Ticket";
-import LicenseBanner from "../components/public/LincenseBanner";
+import { useLocation } from "react-router-dom"
 
-function TicketingPage(props) {
+function TicketingPage() {
     const [ getDay, setDay ] = useState(null);
     const [ getMovieTitle, setMovieTitle ] = useState("");
     const [ getSeatCheck, setSeatCheck ] = useState("");
-
+    const { state } = useLocation();
     //날짜 Handler
+    
     const LoadDateHandler = (data) => {
         setDay(data);
     };
@@ -26,10 +27,19 @@ function TicketingPage(props) {
         setSeatCheck(data);
     };
 
+    //페이지 들어왔을 때, 페이지 상단으로 이동
+    useEffect(()=>{
+        window.scrollTo(0, 0);
+        setMovieTitle(state);
+    }, [state]);
+
     return (
         <Container margin={100}>
             <LoadDate onClickLoadDate={LoadDateHandler}/>
-            <ChoiceMovie onClickTitle={ChoiceMovieHandler} data={getDay}/>
+            <ChoiceMovie 
+                onClickTitle={ChoiceMovieHandler}
+                choiceMovie={state}
+            />
             <div style={{
                 display:"flex",
                 width: 650,

@@ -1,19 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import patchLikeApi from "../../api/patchLikeApi";
 
 function PosterBox(props) {
     const navigate = useNavigate();
+    const [ countLike, setCountLike ] = useState(props.like);
 
-    const ticketingBtn = () => {
-        navigate("/ticketpage");
+    const handleTicketing = () => {
+        navigate("/ticketpage", {state: {
+            movie_title:props.title,
+            movie_poster:props.poster,
+            movie_runtime: props.runtime,
+            movie_id: props.id,
+        }});
     };
 
     const handleLikeBtn = async () => {
-        await patchLikeApi(`/movies/like/${props.id}`);
-    }
-
+        const response = await patchLikeApi(`/movies/like/${props.id}`);
+        response.data.state ? setCountLike(countLike + 1) : setCountLike(countLike - 1); 
+    };
 
     return (
         <div style={{
@@ -34,9 +40,9 @@ function PosterBox(props) {
                 display:"flex",
                 flexDirection: "row",
             }}>
-                <LikeBtn onClick={handleLikeBtn}>❤{props.like}</LikeBtn>
+                <LikeBtn onClick={handleLikeBtn}>❤{countLike}</LikeBtn>
 
-                <Button onClick={ticketingBtn}>예매하기</Button>
+                <Button onClick={handleTicketing}>예매하기</Button>
             </div>
         </div>
     );
@@ -77,7 +83,7 @@ background-size: cover;
 background-color: #999;
 display: flex;
 flex-direction: column;
-border: 2px solid #000;
+box-shadow: 0px 0px 15px 8px #999;
 `;
 
 

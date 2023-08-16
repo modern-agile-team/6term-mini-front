@@ -22,7 +22,7 @@ function MovieListPage() {
 
     useEffect(()=>{
         getMovieTitle();
-    }, [movie])
+    }, [])
 
     return(
         <div>

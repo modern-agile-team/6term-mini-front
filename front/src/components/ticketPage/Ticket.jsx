@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import reservationApi from "../../api/reservationApi";
 import { useNavigate } from "react-router";
-import { useEffect } from "react";
+import {getShowTime} from "../../utils/getShowTime";
 
 const Ticket = (props) => {
     const navigate = useNavigate();
@@ -46,7 +46,8 @@ const Ticket = (props) => {
             }}>
                 <div>
                     <div>{props.day === undefined ? "날짜" : props.day}</div>
-                    <div>{props.runtime === undefined ? "시간" : props.runtime}</div>
+                    <div>{props.runtime === undefined ? "시간" : getShowTime(props.id-1)}</div>
+                    <div>{props.runtime === undefined ? "런타임" : props.runtime}</div>
                 </div>
                 <img
                     style={{

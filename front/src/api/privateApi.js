@@ -24,7 +24,7 @@ const isTokenExpired = async () => {
         });
         return success;
     } catch(err) {
-        return err;
+        return err.response.data.success;
     }
 }
 
@@ -33,6 +33,7 @@ const reNewToken = async () => {
     const refreshToken = localStorage.getItem('refreshToken');
     const response = await instance.post(`auth/token`, {
         headers: {
+            'Content-Type': 'application/json',
             refreshtoken: refreshToken,
         }
     });
@@ -45,13 +46,13 @@ instance.interceptors.request.use(
         const accessToken = getAccessToken();
         const refreshToken = getRefreshToken();
 
+        config.headers["Content-Type"] = "application/json";
         config.headers['accesstoken'] = accessToken;
         config.headers['refreshtoken'] = refreshToken;
 
         return config;
     },
     (error) => {
-        console.log(error);
         return Promise.reject(error);
     }
 );
@@ -62,11 +63,10 @@ instance.interceptors.response.use(
         if (response.status === 404) {
             console.log('404 error');
         }
-    
         return response;
     },
     async (error) => {
-        if (error.response?.status === 401) {
+        if (error.response.status === 401) {
             if (isTokenExpired()) await reNewToken();
         
             const accessToken = getAccessToken();
@@ -81,6 +81,7 @@ instance.interceptors.response.use(
         return response;
         }
         return Promise.reject(error);
+        // return error;
     }
 );
 
