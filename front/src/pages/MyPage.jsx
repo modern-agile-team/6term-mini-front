@@ -48,7 +48,7 @@ function MyPage() {
     //로그아웃
     const logOutBtn = async () => {
         if(window.confirm("로그아웃 하시겠습니까?")) {
-            await logOutApi("logout");
+            await logOutApi("/auth/logout");
             localStorage.clear();
             // window.location.replace("http://localhost:3000/"); //리펙토링 필요(front서버 url로 기입)
             navigate("/login");

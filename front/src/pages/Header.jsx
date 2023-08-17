@@ -20,7 +20,7 @@ function Header() {
         }
     }
 
-    //마이페이지 눌렀을 때, 토튼 있으면 접근
+    //마이페이지 눌렀을 때, 토큰 있으면 접근
     const handleGoMyPage = () => {
         if (localStorage.getItem(`accessToken`) === null) {
             alert('로그인이 필요합니다.');
@@ -29,10 +29,13 @@ function Header() {
         }
     }
 
-    const handleUnload = async () => {
-        await logOutApi("logout")
-    }
-
+    
+    const handleUnload = async (e) => {
+        e.preventDefault();
+        e.returnValue = "";
+        await logOutApi("/auth/logout");
+        window.localStorage.clear();
+    } 
     //페이지 닫을 시 서버 토큰 제거
     useEffect(() => {
         window.addEventListener("beforeunload", handleUnload);
