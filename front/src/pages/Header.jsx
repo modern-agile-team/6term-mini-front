@@ -20,25 +20,14 @@ function Header() {
         }
     }
 
-    //마이페이지 눌렀을 때, 토튼 있으면 접근
-    const myPageBtn = () => {
+    //마이페이지 눌렀을 때, 토큰 있으면 접근
+    const handleGoMyPage = () => {
         if (localStorage.getItem(`accessToken`) === null) {
             alert('로그인이 필요합니다.');
         } else {
             navigate("/mypage");
         }
     }
-
-    const handleUnload = async () => {
-        await logOutApi("logout")
-    }
-
-    //페이지 닫을 시 서버 토큰 제거
-    useEffect(() => {
-        window.addEventListener("beforeunload", handleUnload);
-      
-        return () => window.removeEventListener("beforeunload", handleUnload);
-      }, [handleUnload]);
 
     return (
         <Container>
@@ -47,7 +36,7 @@ function Header() {
                         <BigFont>혼</BigFont>자보는<BigFont>영</BigFont>화<BigFont>관</BigFont>
                     </AccessBox>
                     <HeaderBox>
-                        <AccessBox onClick={myPageBtn}>
+                        <AccessBox onClick={handleGoMyPage}>
                             <img 
                             src={"https://ma6-mini-poster.s3.ap-northeast-2.amazonaws.com/free-icon-user-1946429.png"}
                             style={{
@@ -71,7 +60,7 @@ const BigFont = styled.span`
 `;
 
 const HeaderBox = styled.div`
-    margin: auto 0 0 auto;
+    margin: auto 20px 10px auto;
 `;
 
 export default Header;

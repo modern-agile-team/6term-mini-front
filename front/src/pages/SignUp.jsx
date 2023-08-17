@@ -124,7 +124,7 @@ function SignUp() {
                         height: 20,
                         marginLeft: 25,
                         color: `#ff0000`
-                    }}>{checkMsg.idCheckMsg}</div>
+                    }}>아이디는 4글자 이상 16자 이하 입니다.{checkMsg.idCheckMsg}</div>
                     <InputText name="pw" type="password" placeholder="비밀번호" onChange={handleChange}/>
                     <div style={{
                         width:530,
@@ -137,7 +137,7 @@ function SignUp() {
                         height: 20,
                         marginLeft: 25,
                         color: `#ff0000`
-                    }}>{userInfo.pw === userInfo.checkPw ? "": "비밀번호가 일치하지 않습니다."}</div>
+                    }}>비밀번호는 8~20,특수,영,숫자{userInfo.pw === userInfo.checkPw ? "": "비밀번호가 일치하지 않습니다."}</div>
                 </Container>
                     <ul style={{
                         marginLeft: 25,
