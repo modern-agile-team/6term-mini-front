@@ -21,7 +21,7 @@ function Header() {
     }
 
     //마이페이지 눌렀을 때, 토튼 있으면 접근
-    const myPageBtn = () => {
+    const handleGoMyPage = () => {
         if (localStorage.getItem(`accessToken`) === null) {
             alert('로그인이 필요합니다.');
         } else {
@@ -47,7 +47,7 @@ function Header() {
                         <BigFont>혼</BigFont>자보는<BigFont>영</BigFont>화<BigFont>관</BigFont>
                     </AccessBox>
                     <HeaderBox>
-                        <AccessBox onClick={myPageBtn}>
+                        <AccessBox onClick={handleGoMyPage}>
                             <img 
                             src={"https://ma6-mini-poster.s3.ap-northeast-2.amazonaws.com/free-icon-user-1946429.png"}
                             style={{
@@ -71,7 +71,7 @@ const BigFont = styled.span`
 `;
 
 const HeaderBox = styled.div`
-    margin: auto 0 0 auto;
+    margin: auto 20px 10px auto;
 `;
 
 export default Header;

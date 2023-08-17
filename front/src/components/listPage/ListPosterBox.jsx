@@ -85,6 +85,4 @@ flex-direction: column;
 box-shadow: 0px 0px 15px 8px #999;
 `;
 
-
-
 export default ListPosterBox;

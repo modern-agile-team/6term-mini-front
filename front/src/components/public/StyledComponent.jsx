@@ -8,6 +8,7 @@ export const AccessBox = styled.div`
     cursor: pointer;
     color: #${({ color }) => color};
     background-color: ${({ bgColor }) => bgColor };
+    margin-left: 25px;
 `;
 
 //@param {number} width input가로 길이 (px)
