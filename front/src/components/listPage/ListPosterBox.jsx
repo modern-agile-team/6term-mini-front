@@ -32,7 +32,7 @@ function ListPosterBox(props) {
                 <div style={{
                     fontWeight:"bold",
                     fontSize:20,
-                }}>영화 제목 : {props.title}</div>
+                }}>{props.title}</div>
                 <div>런닝 타임 : {props.runtime}</div>
             <FlexBox>
                 <LikeBtn onClick={handleLikeBtn}>❤{countLike}</LikeBtn>
