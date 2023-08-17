@@ -1,17 +1,28 @@
 import React from "react";
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import {
     Container,
     ButtonUI,
     StyledLink,
+    AccessBox,
 } from "../components/public/StyledComponent";
 function StartPage() {
     //시작 페이지 개발자 프로필 등록
+    const navigate = useNavigate();
+
+    const handleToLoginPage = () => {
+        if (localStorage.getItem(`accessToken`) === null) {
+            navigate('/login');
+        } else {
+            navigate('/mainpage');
+        }
+    }
+
     return (
         <Container>
-            <StyledLink to="/login">
+            <AccessBox onClick={handleToLoginPage}>
                 <ButtonUI>로그인 화면으로 이동</ButtonUI>
-            </StyledLink>
+            </AccessBox>
             <h2>모던애자일 6기 MINI PROJECT</h2>
             <div>
                 <div style={{textAlign:"center"}}>BACK-END</div>
