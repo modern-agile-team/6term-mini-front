@@ -29,6 +29,23 @@ function Header() {
         }
     }
 
+    // 윈도우 close시 이벤트
+    useEffect(() => {
+        window.addEventListener('beforeunload', alertUser)
+        // window.addEventListener('unload', handleTabClosing)
+        return () => {
+            window.removeEventListener('beforeunload', alertUser)
+            // window.removeEventListener('unload', handleTabClosing)
+        }
+    }, []);
+    // const handleTabClosing = () => {
+    //     window.localStorage.clear();
+    // }
+    
+    const alertUser = (event) => {
+        event.preventDefault();
+    }
+
     return (
         <Container>
             <TitleBg>

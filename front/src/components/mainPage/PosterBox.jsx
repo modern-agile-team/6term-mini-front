@@ -6,6 +6,7 @@ import patchLikeApi from "../../api/patchLikeApi";
 function PosterBox(props) {
     const navigate = useNavigate();
     const [ countLike, setCountLike ] = useState(props.like);
+    const [ emptyLike, setEmptyLike ] = useState(props.likeStatus);
 
     const handleTicketing = () => {
         navigate("/ticketpage", {state: {
@@ -18,7 +19,13 @@ function PosterBox(props) {
 
     const handleLikeBtn = async () => {
         const response = await patchLikeApi(`/movies/like/${props.id}`);
-        response.data.state ? setCountLike(countLike + 1) : setCountLike(countLike - 1); 
+        if(response.data.state) {
+            setCountLike(countLike + 1)
+            setEmptyLike('♥');
+        } else {
+            setCountLike(countLike - 1);
+            setEmptyLike('♡');
+        } 
     };
 
     return (
@@ -29,7 +36,7 @@ function PosterBox(props) {
                 <div style={{
                     fontWeight:"bold",
                     margin: 5,
-                    color: "#fff"
+                    color: "#fff",
                 }}>{props.title}</div>
                 <div style={{
                     marginTop:"auto",
@@ -40,7 +47,7 @@ function PosterBox(props) {
                 display:"flex",
                 flexDirection: "row",
             }}>
-                <LikeBtn onClick={handleLikeBtn}>❤{countLike}</LikeBtn>
+                <LikeBtn onClick={handleLikeBtn}>{emptyLike}{countLike}</LikeBtn>
 
                 <Button onClick={handleTicketing}>예매하기</Button>
             </div>

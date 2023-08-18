@@ -71,8 +71,8 @@ function MyPage() {
         if(window.confirm("예매를 취소하시겠습니까?")) {
             const res = await cancelMovieApi(`/movies/users/seat`, seatId);
             alert(res.data.msg)
+            window.location.reload();
         }
-        window.location.reload();
     };
 
     useEffect(()=>{
@@ -89,7 +89,8 @@ function MyPage() {
                 <div style={{
                     display:"flex",
                     flexDirection:"column",
-                    margin: 40
+                    margin: 40,
+                    marginLeft: 100,
                 }}>
                     <span style={{
                         margin: 10,
@@ -115,10 +116,12 @@ function MyPage() {
                 fontWeight: "bold",
                 fontSize: 30,
                 margin: 10,
+                marginLeft: 80,
             }}>나의 영화 티켓</div>
             <div style={{
                 display: "flex",
                 flexDirection: "row",
+                justifyContent: "center",
                 margin: 30,
                 flexWrap: "wrap",
                 height: "auto",
@@ -184,10 +187,16 @@ function MyPage() {
                                 width: 220,
                                 height: 100,
                                 textAlign: "center",
-                                backgroundColor: "#999",
                                 marginRight: "auto",
                             }}>
-                                <img src="" alt="QR코드"/> {/*s3에서 값 QR사진 받아오기*/}
+                                <img 
+                                    src="https://ma6-mini-poster.s3.ap-northeast-2.amazonaws.com/qr.png" 
+                                    alt="QR코드"
+                                    style={{
+                                        width: 100,
+                                        height: 100,
+                                    }}
+                                />
                             </div>
                             <button style={{
                                 width: 220,
