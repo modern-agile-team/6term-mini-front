@@ -83,26 +83,38 @@ function Header() {
         };
     }, []);
 
+
     // 브라우저 창이 닫힐 때 수행할 작업
-    const toDoWhenClosing = async () => {
+    const toDoWhenClosing = () => {
         window.localStorage.clear();
-        await logOutApi("/auth/logout");
     };
 
+    const toDoWhenApi = async () => {
+        await logOutApi("/auth/logout"); 
+    }
+ 
     useEffect(() => {
         // 윈도우가 언로드될 때 호출되는 핸들러
-        const handleUnload = () => {    
+        const handleUnload = async () => {
             if (closingWindow) {
                 toDoWhenClosing();
             }
-        };
+        }
 
+        const handleUnloadApi = async () => {
+            if (closingWindow) {
+                toDoWhenApi();
+            }
+        }
+        
         // 컴포넌트가 마운트되었을 때 언로드 이벤트 핸들러 등록
         window.addEventListener('unload', handleUnload);
-
+        window.addEventListener('unload', handleUnloadApi);
+        
         // 컴포넌트 언마운트 시 언로드 이벤트 핸들러 제거
         return () => {
             window.removeEventListener('unload', handleUnload);
+            window.addEventListener('unload', handleUnloadApi);
         };
     }, [closingWindow]);
 
