@@ -16,7 +16,7 @@ function MainPage() {
     //영화 정보 받아오기
     const getMovieTitle = async () => {
         const res = await getMovieApi("/movies/lists");
-        setMovie(res.data.movieInfo);
+        setMovie(res.data.movieInfo);   
     }
 
     //목록 페이지로 이동
@@ -74,6 +74,9 @@ function MainPage() {
                             key={idx}
                             id={data.movie_id}
                             like={data.like_count}
+                            likeStatus={
+                                data.like_status === 1 ? "♥" : "♡"
+                            }
                             title={data.movie_title}
                             poster={data.movie_poster}
                             runtime={data.movie_runtime}

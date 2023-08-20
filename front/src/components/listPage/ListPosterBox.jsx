@@ -6,6 +6,7 @@ import { useState } from "react";
 function ListPosterBox(props) {
     const navigate = useNavigate();
     const [ countLike, setCountLike ] = useState(props.like);
+    const [ emptyLike, setEmptyLike ] = useState(props.likeStatus);
 
     const handleTicketing = () => {
         navigate("/ticketpage", {state: {
@@ -18,7 +19,13 @@ function ListPosterBox(props) {
 
     const handleLikeBtn = async () => {
         const response = await patchLikeApi(`movies/like/${props.id}`, props.id);
-        response.data.state ? setCountLike(countLike + 1) : setCountLike(countLike -1);
+        if(response.data.state) {
+            setCountLike(countLike + 1)
+            setEmptyLike('♥');
+        } else {
+            setCountLike(countLike - 1);
+            setEmptyLike('♡');
+        } 
     };
     return (
         <div style={{
@@ -35,7 +42,7 @@ function ListPosterBox(props) {
                 }}>{props.title}</div>
                 <div>런닝 타임 : {props.runtime}</div>
             <FlexBox>
-                <LikeBtn onClick={handleLikeBtn}>❤{countLike}</LikeBtn>
+                <LikeBtn onClick={handleLikeBtn}>{emptyLike}{countLike}</LikeBtn>
                 <Button onClick={handleTicketing}>예매하기</Button>
             </FlexBox>
         </div>

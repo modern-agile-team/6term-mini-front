@@ -5,7 +5,7 @@ import { getShowTime } from "../../utils/getShowTime";
 
 const ChoiceMovie = ({ onClickTitle }) => {
     const [ movie, setMovie ] = useState(null);
-    const [ choiceColor, setColor ] = useState(false);
+    const [ choiceMovie, setChoiceMovie ] = useState(null);
     
     //영화 리스트 불러오기
     const getMovieList = async () => {
@@ -16,17 +16,13 @@ const ChoiceMovie = ({ onClickTitle }) => {
 
     //영화 선택시 상태 끌어올리기
     const handleChoiceBtn = async (e) => {
+        console.log(e.target.dataseat);
         movie.filter((data)=> {
             if (String(data.movie_id) === String(e.target.name)) {
                 onClickTitle(data)
             }
         });
-        handleBgColor();
     };
-
-    const handleBgColor = () => {
-        setColor(!choiceColor)
-    }
 
     useEffect(()=>{
         getMovieList();
@@ -46,7 +42,7 @@ const ChoiceMovie = ({ onClickTitle }) => {
                         key={idx} 
                         onClick={handleChoiceBtn} 
                         name={data.movie_id}
-                        bgColor={choiceColor}
+                        data-movie="bg-color"
                     >
                         <Title onClick={handleChoiceBtn} name={data.movie_id}>{data.movie_title}</Title>
                         <Title onClick={handleChoiceBtn} name={data.movie_id}>{getShowTime(idx)}</Title>

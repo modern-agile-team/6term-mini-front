@@ -44,6 +44,9 @@ function MovieListPage() {
                             id={data.movie_id}
                             like={data.like_count}
                             poster={data.movie_poster}
+                            likeStatus={
+                                data.like_status === 1 ? "♥" : "♡"
+                            }
                             title={data.movie_title}
                             runtime={data.movie_runtime}
                             />

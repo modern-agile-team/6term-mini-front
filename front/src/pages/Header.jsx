@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import {
@@ -10,6 +10,7 @@ import logOutApi from "../api/logOutApi";
 
 function Header() {
     const navigate = useNavigate();
+    const [closingWindow, setClosingWindow] = useState(false);
     
     //logo눌렀을 때, 토큰이 있으면 main페이지로 이동 없으면 x
     const logoBtn = () => {
@@ -28,6 +29,94 @@ function Header() {
             navigate("/mypage");
         }
     }
+
+
+    useEffect(() => {
+        // 윈도우가 포커스될 때 호출되는 핸들러
+        const handleFocus = () => {
+            setClosingWindow(false);
+        };
+
+        // 윈도우가 블러될 때 호출되는 핸들러
+        const handleBlur = () => {
+            setClosingWindow(true);
+        };
+
+        // 윈도우 크기가 변경될 때 호출되는 핸들러
+        const handleResize = () => {
+            setClosingWindow(false);
+        };
+
+        // 마우스가 문서 바깥으로 이동할 때 호출되는 핸들러
+        const handleMouseLeave = () => {
+            setClosingWindow(true);
+        };
+
+        // 마우스가 문서 안으로 이동할 때 호출되는 핸들러
+        const handleMouseEnter = () => {
+            setClosingWindow(false);
+        };
+
+        // 키가 눌렸을 때 호출되는 핸들러
+        const handleKeyDown = (e) => {
+            if (e.keyCode === 91 || e.keyCode === 18 || (e.ctrlKey && e.keyCode === 82)) {
+                setClosingWindow(false); // 단축키 ALT+TAB, F5, CTRL+F5, CTRL+R (새로고침)
+            }
+        };
+
+        // 컴포넌트가 마운트되었을 때 이벤트 핸들러 등록
+        window.addEventListener('focus', handleFocus);
+        window.addEventListener('blur', handleBlur);
+        window.addEventListener('resize', handleResize);
+        document.addEventListener('mouseleave', handleMouseLeave);
+        document.addEventListener('mouseenter', handleMouseEnter);
+        document.addEventListener('keydown', handleKeyDown);
+
+        // 컴포넌트 언마운트 시 이벤트 핸들러 제거
+        return () => {
+            window.removeEventListener('focus', handleFocus);
+            window.removeEventListener('blur', handleBlur);
+            window.removeEventListener('resize', handleResize);
+            document.removeEventListener('mouseleave', handleMouseLeave);
+            document.removeEventListener('mouseenter', handleMouseEnter);
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
+
+
+    // 브라우저 창이 닫힐 때 수행할 작업
+    const toDoWhenClosing = () => {
+        window.localStorage.clear();
+    };
+
+    const toDoWhenApi = async () => {
+        await logOutApi("/auth/logout"); 
+    }
+ 
+    useEffect(() => {
+        // 윈도우가 언로드될 때 호출되는 핸들러
+        const handleUnload = async () => {
+            if (closingWindow) {
+                toDoWhenClosing();
+            }
+        }
+
+        const handleUnloadApi = async () => {
+            if (closingWindow) {
+                toDoWhenApi();
+            }
+        }
+        
+        // 컴포넌트가 마운트되었을 때 언로드 이벤트 핸들러 등록
+        window.addEventListener('unload', handleUnload);
+        window.addEventListener('unload', handleUnloadApi);
+        
+        // 컴포넌트 언마운트 시 언로드 이벤트 핸들러 제거
+        return () => {
+            window.removeEventListener('unload', handleUnload);
+            window.addEventListener('unload', handleUnloadApi);
+        };
+    }, [closingWindow]);
 
     return (
         <Container>

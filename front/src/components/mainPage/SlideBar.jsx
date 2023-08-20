@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Slide from './Slide';
 
-const TOTAL_SLIDES = 3; // 전체 슬라이드 개수(총3개. 배열로 계산)
+const TOTAL_SLIDES = 6; // 전체 슬라이드 개수(총6개. 배열로 계산)
 
 export default function SlideBar() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -72,7 +72,7 @@ export default function SlideBar() {
             <div>
                 <Slide url={"https://youtu.be/BOqFRHCrN-k"} />
             </div>
-            {/* <div>
+            <div>
               <Slide url={"https://youtu.be/XyHr-s3MfCQ"} />
             </div>
             <div>
@@ -80,7 +80,7 @@ export default function SlideBar() {
             </div>
             <div>
               <Slide url={"https://youtu.be/9V2tVurYTxc"} />
-            </div> */}
+            </div>
         </SliderContainer>
       <Center>
         <Button onClick={handleSlidePrev}>&lt;</Button>
